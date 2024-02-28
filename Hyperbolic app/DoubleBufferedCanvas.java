@@ -19,8 +19,7 @@ class DoubleBufferedCanvas extends Canvas
             g.setColor(Color.black);
             g.fillRect(0, 0, getWidth(), getHeight());
             paint(g);
-        }
-        else
+        } else
         {
             Graphics g2;
             Image offscreen = createImage(getSize().width, getSize().height);
