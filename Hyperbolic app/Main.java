@@ -49,6 +49,7 @@ public class Main extends JFrame
         T.setSize(915, 209);
         C.setSize(607, 222);
         D.setSize(303, 222);
+
         add(C3);
         add(C1);
         add(C2);

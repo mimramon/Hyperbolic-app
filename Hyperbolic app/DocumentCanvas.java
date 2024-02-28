@@ -17,7 +17,7 @@ class DocumentCanvas extends DoubleBufferedCanvas implements MouseListener
         setBackground(Color.black);
         MESSAGE = 50;
         history = -1;
-        on = 0;
+        on = false;
         font = new Font("Helvetica", Font.PLAIN, 11);
         ACTIVE = 0;
         TCOL = Color.white;
@@ -312,7 +312,7 @@ class DocumentCanvas extends DoubleBufferedCanvas implements MouseListener
 
     void setMESSAGE()
     {
-        for (int i = 1; i <= 21; ++i) St[i] = "";
+        //for (int i = 1; i <= 21; ++i) St[i] = "";
 
         if (MESSAGE == -1)
         {

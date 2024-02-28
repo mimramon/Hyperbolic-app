@@ -214,12 +214,12 @@ class TextCanvas extends DoubleBufferedCanvas implements MouseListener
         {
             for (int i = 20; i <= 36; ++i) L[i].render(g, new Color(255, 150, 0));
             for (int i = 31; i <= 36; ++i) L[i].render(g, new Color(255, 255, 0));
-            if (P1.on == 0) L[31].render(g, new Color(255, 150, 0));
-            if (P2.on == 0) L[32].render(g, new Color(255, 150, 0));
-            if (P3.on == 0) L[33].render(g, new Color(255, 150, 0));
-            if (D.on == 0) L[34].render(g, new Color(255, 150, 0));
-            if (C.on == 0) L[35].render(g, new Color(255, 150, 0));
-            if (this.on == 0) L[36].render(g, new Color(255, 150, 0));
+            if (!P1.on) L[31].render(g, new Color(255, 150, 0));
+            if (!P2.on) L[32].render(g, new Color(255, 150, 0));
+            if (!P3.on) L[33].render(g, new Color(255, 150, 0));
+            if (!D.on) L[34].render(g, new Color(255, 150, 0));
+            if (!C.on) L[35].render(g, new Color(255, 150, 0));
+            if (!this.on) L[36].render(g, new Color(255, 150, 0));
 
             L[20 + FONT1].render(g, new Color(255, 255, 0));
             L[23 + FONT2].render(g, new Color(255, 255, 0));
@@ -369,12 +369,12 @@ class TextCanvas extends DoubleBufferedCanvas implements MouseListener
                 repaint();
             }
 
-            if (test == 31) P1.on = 1 - P1.on;
-            if (test == 32) P2.on = 1 - P2.on;
-            if (test == 33) P3.on = 1 - P3.on;
-            if (test == 34) D.on = 1 - D.on;
-            if (test == 35) C.on = 1 - C.on;
-            if (test == 36) this.on = 1 - this.on;
+            if (test == 31) P1.on = !P1.on;
+            if (test == 32) P2.on = !P2.on;
+            if (test == 33) P3.on = !P3.on;
+            if (test == 34) D.on = !D.on;
+            if (test == 35) C.on = !C.on;
+            if (test == 36) this.on = !this.on;
         }
 
 
