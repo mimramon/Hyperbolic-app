@@ -7,7 +7,6 @@ class HorizontalSlider {
     int ACTIVE;
     int POS;
     Color C;
-    String S;
     HorizontalSlider(int x,int y,int w,int h,int POS,Color C) {
         this.x=x;
         this.y=y;
