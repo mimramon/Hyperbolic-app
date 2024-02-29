@@ -10,13 +10,14 @@ public class Main extends JFrame
     public static void main(String[] args)
     {
         Main m = new Main();
-        m.setSize(1600, 900);
+        m.setSize(1980, 1200);
         m.init();
 
         m.setVisible(true);
         m.setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
+    JPanel plotPanel, controlPanel, textPanel, documentPanel, buttonPanel;
     PlotCanvas P1, P2, P3;
     PlotControlCanvas C1, C2, C3;
     ControlCanvas C;
@@ -50,16 +51,33 @@ public class Main extends JFrame
         C.setSize(607, 222);
         D.setSize(303, 222);
 
-        add(C3);
-        add(C1);
-        add(C2);
+        controlPanel = new JPanel();
+        controlPanel.setSize(909, 17);
+        controlPanel.add(C3, BorderLayout.EAST);
+        controlPanel.add(C1, BorderLayout.WEST);
+        controlPanel.add(C2, BorderLayout.CENTER);
+        add(controlPanel, BorderLayout.NORTH);
 
-        add(P3);
-        add(P1);
-        add(P2);
+        plotPanel = new JPanel();
+        plotPanel.setSize(909, 270);
+        plotPanel.add(P3);
+        plotPanel.add(P1);
+        plotPanel.add(P2);
+        add(plotPanel,BorderLayout.CENTER);
 
-        add(D);
-        add(C);
-        add(T);
+        textPanel = new JPanel();
+        textPanel.setSize(915, 209);
+        textPanel.add(T);
+        add(textPanel, BorderLayout.SOUTH);
+
+        documentPanel = new JPanel();
+        documentPanel.setSize(303, 222);
+        documentPanel.add(D);
+        add(documentPanel, BorderLayout.SOUTH);
+
+        buttonPanel = new JPanel();
+        buttonPanel.setSize(607, 222);
+        buttonPanel.add(C);
+        add(buttonPanel, BorderLayout.SOUTH);
     }
 }
