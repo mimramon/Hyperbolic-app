@@ -10,7 +10,7 @@ public class Main extends JFrame
     public static void main(String[] args)
     {
         Main m = new Main();
-        m.setSize(1980, 1200);
+        m.setSize(1920, 1080);
         m.init();
 
         m.setVisible(true);
