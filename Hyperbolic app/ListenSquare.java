@@ -1,4 +1,3 @@
-
 /*this is the button class*/
 
 import java.awt.*;

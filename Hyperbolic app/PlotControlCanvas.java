@@ -10,7 +10,7 @@ import java.awt.event.MouseMotionListener;
 
 class PlotControlCanvas extends DoubleBufferedCanvas implements MouseListener, MouseMotionListener
 {
-    ListenSquare active, reset, mode;
+    ListenSquare active, reset, info, mode;
     DocumentCanvas D;
     PlotCanvas P;
     HorizontalSlider scale, aspect;
@@ -43,7 +43,8 @@ class PlotControlCanvas extends DoubleBufferedCanvas implements MouseListener, M
     public void paint(Graphics gfx)
     {
         Graphics2D g = (Graphics2D) gfx;
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
         g.setFont(new Font("Helvetica", Font.PLAIN, 10));
 
         scale.render(g);
@@ -136,10 +137,12 @@ class PlotControlCanvas extends DoubleBufferedCanvas implements MouseListener, M
 
     public void mouseReleased(MouseEvent e)
     {
+        Point p = pinpoint(e);
+
         if (scale.ACTIVE == 1)
         {
             double d1 = scale.POS - 220;
-            P.SCALE = Math.exp(d1 / 40.0);
+            P.SCALE = 1.0 * Math.exp(d1 / 40.0);
             repaint();
         }
 
