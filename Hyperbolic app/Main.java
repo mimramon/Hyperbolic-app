@@ -1,23 +1,29 @@
 import javax.swing.*;
+import java.applet.Applet;
+import java.awt.event.*;
 import java.awt.*;
 
 /*This applet gives an interactive
   proof of the Goldman-Parker Conjecture.
   Programmed by Rich Schwartz*/
 
-public class Main extends JFrame
+/*overall applet layout*/
+
+
+public class Main extends Applet
 {
     public static void main(String[] args)
     {
-        Main m = new Main();
-        m.setSize(1920, 1080);
-        m.init();
-
-        m.setVisible(true);
-        m.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        JFrame frame = new JFrame("applet viewer");
+        frame.setSize(1920, 1080);
+        Applet applet = new Main();
+        frame.add(applet);
+        applet.init();
+        applet.start();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
     }
 
-    JPanel plotPanel, controlPanel, textPanel, documentPanel, buttonPanel;
     PlotCanvas P1, P2, P3;
     PlotControlCanvas C1, C2, C3;
     ControlCanvas C;
@@ -51,33 +57,17 @@ public class Main extends JFrame
         C.setSize(607, 222);
         D.setSize(303, 222);
 
-        controlPanel = new JPanel();
-        controlPanel.setSize(909, 17);
-        controlPanel.add(C3, BorderLayout.EAST);
-        controlPanel.add(C1, BorderLayout.WEST);
-        controlPanel.add(C2, BorderLayout.CENTER);
-        add(controlPanel, BorderLayout.NORTH);
 
-        plotPanel = new JPanel();
-        plotPanel.setSize(909, 270);
-        plotPanel.add(P3);
-        plotPanel.add(P1);
-        plotPanel.add(P2);
-        add(plotPanel,BorderLayout.CENTER);
+        add(C3);
+        add(C1);
+        add(C2);
 
-        textPanel = new JPanel();
-        textPanel.setSize(915, 209);
-        textPanel.add(T);
-        add(textPanel, BorderLayout.SOUTH);
+        add(P3);
+        add(P1);
+        add(P2);
 
-        documentPanel = new JPanel();
-        documentPanel.setSize(303, 222);
-        documentPanel.add(D);
-        add(documentPanel, BorderLayout.SOUTH);
-
-        buttonPanel = new JPanel();
-        buttonPanel.setSize(607, 222);
-        buttonPanel.add(C);
-        add(buttonPanel, BorderLayout.SOUTH);
+        add(D);
+        add(C);
+        add(T);
     }
 }

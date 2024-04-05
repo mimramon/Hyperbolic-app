@@ -161,8 +161,9 @@ class ControlCanvas extends DoubleBufferedCanvas implements MouseListener, Mouse
         z.doubleRender(ss, g, 335, 217);
         double sss = s / Math.sqrt(125.0 / 3.0);
         z.doubleRender(sss, g, 535, 217);
+        Integer I = new Integer(0);
         g.setColor(Color.black);
-        g.drawString(Integer.toString(DENSITY), 575, 14);
+        g.drawString(I.toString(DENSITY), 575, 14);
         z.doubleRender(TRUNCATE, g, 185, 14);
     }
 
@@ -213,7 +214,8 @@ class ControlCanvas extends DoubleBufferedCanvas implements MouseListener, Mouse
 
     double getTruncate()
     {
-        double ss = truncate.POS;
+        double ss = 0.0;
+        ss = truncate.POS;
         ss = (ss - truncate.x) / truncate.w;
         if (ss > .99) ss = 1.0;
         return (ss);
@@ -221,6 +223,7 @@ class ControlCanvas extends DoubleBufferedCanvas implements MouseListener, Mouse
 
     void doPlot()
     {
+        double t = getTruncate();
         D.MESSAGE = 50;
         D.ACTIVE = 1;
         D.repaint();
@@ -229,7 +232,8 @@ class ControlCanvas extends DoubleBufferedCanvas implements MouseListener, Mouse
         P1.TRUNCATE = TRUNCATE;
         P2.TRUNCATE = TRUNCATE;
         P3.TRUNCATE = TRUNCATE;
-        int m = (int) (Math.pow(2, MODE - 1));
+        int m = 0;
+        m = (int) (Math.pow(2, MODE - 1));
         P1.MULTIPLICITY = m;
         P2.MULTIPLICITY = m;
         P3.MULTIPLICITY = m;
@@ -356,7 +360,8 @@ class ControlCanvas extends DoubleBufferedCanvas implements MouseListener, Mouse
         {
             if (mode[i].inside(p) == 1) D.MESSAGE = 70;
         }
-        int test = S1.MESSAGE(p);
+        int test = 0;
+        test = S1.MESSAGE(p);
         if (test > 0) D.MESSAGE = 14 + test;
         test = S2.MESSAGE(p);
         if (test > 0) D.MESSAGE = 27 + test;

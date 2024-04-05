@@ -1,276 +1,335 @@
+class Vector {
+    Complex a,b,c;
 
-class Vector
-{
-    Complex a, b, c;
-
-    Vector()
-    {
-        this.a = new Complex();
-        this.b = new Complex();
-        this.c = new Complex();
+    Vector() {
+        this.a=new Complex(0.0,0.0);
+        this.b=new Complex(0.0,0.0);
+        this.c=new Complex(0.0,0.0);
     }
 
-    Vector(Complex a, Complex b, Complex c)
-    {
-        this.a = a;
-        this.b = b;
-        this.c = c;
-    }
-
-    void print()
-    {
+    void print() {
         this.a.print();
         this.b.print();
         this.c.print();
     }
 
 
-    static Vector plus(Vector v, Vector w)
-    {
-        return new Vector(Complex.plus(v.a, w.a), Complex.plus(v.b, w.b), Complex.plus(v.c, w.c));
+    Vector plus(Vector v,Vector w) {
+        Vector x=new Vector();
+        x.a=x.a.plus(v.a,w.a);
+        x.b=x.b.plus(v.b,w.b);
+        x.c=x.c.plus(v.c,w.c);
+        return(x);
     }
 
-    static Vector minus(Vector v, Vector w)
-    {
-        return new Vector(Complex.minus(v.a, w.a), Complex.minus(v.b, w.b), Complex.minus(v.c, w.c));
+    Vector minus(Vector v,Vector w) {
+        Vector x=new Vector();
+        x.a=x.a.minus(v.a,w.a);
+        x.b=x.b.minus(v.b,w.b);
+        x.c=x.c.minus(v.c,w.c);
+        return(x);
     }
 
-    static Vector scale(Complex a, Vector v)
-    {
-        return new Vector(Complex.times(a, v.a), Complex.times(a, v.b), Complex.times(a, v.c));
+    Vector scale(Complex a,Vector v) {
+        Vector w=new Vector();
+        w.a=w.a.times(a,v.a);
+        w.b=w.b.times(a,v.b);
+        w.c=w.c.times(a,v.c);
+        return(w);
     }
 
-    static Complex dot(Vector v, Vector w)
+    Complex dot(Vector v,Vector w)
     {
-        return Complex.plus(Complex.plus(Complex.times(v.a, w.a), Complex.times(v.b, w.b)), Complex.times(v.c, w.c));
-    }
-
-
-    static double norm(Vector v)
-    {
-        return v.a.x * v.a.x + v.b.x * v.b.x + v.c.x * v.c.x;
-    }
-
-    static double dist(Vector v, Vector w)
-    {
-        Vector vv = Vector.normalize(v);
-        Vector ww = Vector.normalize(w);
-        return Vector.norm(Vector.minus(vv, ww));
-    }
-
-
-    static Complex hermitian_dot(Vector v, Vector w)
-    {
-        Complex c1 = Complex.times(v.a, Complex.conjugate(w.a));
-        Complex c2 = Complex.times(v.b, Complex.conjugate(w.b));
-        Complex c3 = Complex.times(v.c, Complex.conjugate(w.c));
-        return Complex.minus(Complex.plus(c1, c2), c3);
+        Complex d=new Complex();
+        d=d.plus(d.plus(d.times(v.a,w.a),d.times(v.b,w.b)),d.times(v.c,w.c));
+        return(d);
     }
 
 
-    static Complex angular_invariant(Vector v1, Vector v2, Vector v3)
-    {
-        Complex z1 = Vector.hermitian_dot(v1, v2);
-        Complex z2 = Vector.hermitian_dot(v2, v3);
-        Complex z3 = Vector.hermitian_dot(v3, v1);
-        return Complex.times(z1, Complex.times(z2, z3));
+    double norm(Vector x) {
+        return(x.a.x*x.a.x+x.b.x*x.b.x+x.c.x*x.c.x);
+    }
+
+    double dist(Vector v,Vector w) {
+        Vector vv=v.normalize(v);
+        Vector  ww=w.normalize(w);
+        return(vv.norm(vv.minus(vv,ww)));
     }
 
 
-    static Vector hermitian_cross(Vector v, Vector w)
-    {
-        Vector x = new Vector();
-        x.a = Complex.conjugate(Complex.minus(Complex.times(v.b, w.c), Complex.times(v.c, w.b)));
-        x.b = Complex.conjugate(Complex.minus(Complex.times(v.c, w.a), Complex.times(v.a, w.c)));
-        x.c = Complex.conjugate(Complex.minus(Complex.times(v.b, w.a), Complex.times(v.a, w.b)));
-        return x;
+    Complex hermitian_dot(Vector v,Vector w) {
+        Complex c1=new Complex();
+        Complex c2=new Complex();
+        Complex c3=new Complex();
+        Complex c=new Complex();
+        c1=c1.times(v.a,c1.conjugate(w.a));
+        c2=c2.times(v.b,c2.conjugate(w.b));
+        c3=c2.times(v.c,c3.conjugate(w.c));
+        c=c.minus(c.plus(c1,c2),c3);
+        return(c);
     }
 
 
-    static Vector normalize(Vector v)
-    {
-        return new Vector(Complex.divide(v.a, v.c), Complex.divide(v.b, v.c), Complex.divide(v.c, v.c));
-    }
-
-    //Discuss with anna to refactor this
-    Complex projection(Vector v)
-    {
-        Complex z = Complex.divide(hermitian_dot(v, this), hermitian_dot(this, this));
-        z = Complex.times(z, new Complex(-1, 0));
-        Vector w = Vector.plus(v, Vector.scale(z, this));
-        return Complex.divide(w.a, w.c);
-    }
-
-    static Vector P0(double s)
-    {
-        return new Vector(Complex.beta(s), Complex.conjugate(Complex.beta(s)), new Complex(1, 0));
+    Complex angular_invariant(Vector v1,Vector v2,Vector v3) {
+        Complex z1=new Complex();
+        Complex z2=new Complex();
+        Complex z3=new Complex();
+        Complex z=new Complex();
+        z1=hermitian_dot(v1,v2);
+        z2=hermitian_dot(v2,v3);
+        z3=hermitian_dot(v3,v1);
+        z=z.times(z1,z.times(z2,z3));
+        return(z);
     }
 
 
-    static Vector P1(double s)
-    {
-        return new Vector(Complex.beta(s), Complex.beta(s), new Complex(1, 0));
+    Vector hermitian_cross(Vector v,Vector w) {
+        Vector x=new Vector();
+        x.a=x.a.minus(x.a.times(v.b,w.c),x.a.times(v.c,w.b));
+        x.b=x.b.minus(x.b.times(v.c,w.a),x.b.times(v.a,w.c));
+        x.c=x.c.minus(x.c.times(v.b,w.a),x.c.times(v.a,w.b));
+        x.a=x.a.conjugate(x.a);
+        x.b=x.b.conjugate(x.b);
+        x.c=x.c.conjugate(x.c);
+        return(x);
     }
 
 
-    static Vector P2(double s)
-    {
-        return new Vector(Complex.conjugate(Complex.beta(s)), Complex.conjugate(Complex.beta(s)), new Complex(1, 0));
-    }
-
-    //Function requires further refactoring
-    static Vector C21(double s)
-    {
-        Vector v1 = P0(s);
-        Vector v2 = P1(s);
-
-        Complex z1 = Vector.hermitian_dot(P0(s), P2(s));
-        Complex z2 = Vector.hermitian_dot(P1(s), P2(s));
-        v1 = Vector.scale(Complex.inverse(z1), v1);
-        v2 = Vector.scale(Complex.inverse(z2), v2);
-        Complex z3 = Vector.hermitian_dot(v1, v2);
-        z3 = Complex.unit(z3);
-        Complex z4 = Complex.times(z3, new Complex(0.0, 1.0));
-        v2 = Vector.scale(z4, v2);
-        return Vector.plus(v1, v2);
-    }
-
-    //Function requires further refactoring
-    static Vector C22(double s)
-    {
-        Vector v1 = P0(s);
-        Vector v2 = P1(s);
-        Vector v3 = P2(s);
-
-        Complex z1 = Vector.hermitian_dot(v1, v3);
-        Complex z2 = Vector.hermitian_dot(v2, v3);
-        v1 = Vector.scale(Complex.inverse(z1), v1);
-        v2 = Vector.scale(Complex.inverse(z2), v2);
-        Complex z3 = Vector.hermitian_dot(v1, v2);
-        z3 = Complex.unit(z3);
-        Complex z4 = Complex.times(z3, new Complex(0.0, 1.0));
-        v2 = Vector.scale(z4, v2);
-        v3 = Vector.minus(v1, v2);
-        return v3;
+    Vector normalize(Vector v) {
+        Vector x=new Vector();
+        x.a=x.a.divide(v.a,v.c);
+        x.b=x.b.divide(v.b,v.c);
+        x.c=x.c.divide(v.c,v.c);
+        return(x);
     }
 
 
-    //requires more refactoring
-    static Vector C11(double s)
-    {
-        Vector v1 = P0(s);
-        Vector v2 = P1(s);
-        Vector v3 = P2(s);
-
-        Complex z1 = Vector.hermitian_dot(v1, v2);
-        Complex z3 = Vector.hermitian_dot(v3, v2);
-        v1 = Vector.scale(Complex.inverse(z1), v1);
-        v3 = Vector.scale(Complex.inverse(z3), v3);
-        Complex z2 = hermitian_dot(v1, v3);
-        z2 = Complex.unit(z2);
-        Complex z4 = Complex.times(z2, new Complex(0.0, 1.0));
-        v3 = Vector.scale(z4, v3);
-        v2 = Vector.plus(v1, v3);
-        return (v2);
+    Complex projection(Vector v) {
+        Vector w=new Vector();
+        Complex[] z=new Complex[5];
+        z[1]=hermitian_dot(v,this);
+        z[2]=hermitian_dot(this,this);
+        z[3]=z[2].divide(z[1],z[2]);
+        z[3].x=-z[3].x;
+        z[3].y=-z[3].y;
+        w=w.plus(v,w.scale(z[3],this));
+        z[4]=z[3].divide(w.a,w.c);
+        return(z[4]);
     }
 
-    //requires more refactoring
-    static Vector C12(double s)
-    {
-        Vector v1 = P0(s);
-        Vector v2 = P1(s);
-        Vector v3 = P2(s);
-
-        Complex z1 = Vector.hermitian_dot(v1, v2);
-        Complex z3 = Vector.hermitian_dot(v3, v2);
-        v1 = Vector.scale(Complex.inverse(z1), v1);
-        v3 = Vector.scale(Complex.inverse(z3), v3);
-        Complex z2 = Vector.hermitian_dot(v1, v3);
-        z2 = Complex.unit(z2);
-        Complex z4 = Complex.times(z2, new Complex(0.0, 1.0));
-        v3 = Vector.scale(z4, v3);
-        v2 = Vector.minus(v1, v3);
-        return (v2);
+    Vector P0(double s) {
+        Vector v=new Vector();
+        v.a=v.a.beta(s);
+        v.b=v.b.conjugate(v.b.beta(s));
+        v.c.x=1.0;
+        v.c.y=0.0;
+        return(v);
     }
 
-    //Requires Matrix class to be refactored
-    Vector fix1(double s)
-    {
-        Matrix m = Matrix.J1(s);
-        Vector v1 = Vector.normalize(Matrix.critical_axis().b);
-        Vector v2;
-        double test = 1.0;
-        while (test > 0.000000000001)
-        {
-            v2 = Vector.normalize(m.act(v1));
-            test = Vector.dist(v1, v2);
-            v1 = v2;
+
+    Vector P1(double s) {
+        Vector v=new Vector();
+        v.a=v.a.beta(s);
+        v.b=v.b.beta(s);
+        v.c.x=1.0;
+        v.c.y=0.0;
+        return(v);
+    }
+
+
+    Vector P2(double s) {
+        Vector v=new Vector();
+        v.a=v.a.conjugate(v.a.beta(s));
+        v.b=v.b.conjugate(v.b.beta(s));
+        v.c.x=1.0;
+        v.c.y=0.0;
+        return(v);
+    }
+
+
+    Vector C21(double s) {
+        Vector[] v=new Vector[10];
+        double[] d=new double[10];
+        Complex[] z=new Complex[10];
+
+        v[0]=P0(s);
+        v[1]=P1(s);
+        v[2]=P2(s);
+
+        z[0]=v[1].hermitian_dot(v[0],v[2]);
+        z[1]=v[1].hermitian_dot(v[1],v[2]);
+        v[0]=v[0].scale(z[0].inverse(z[0]),v[0]);
+        v[1]=v[1].scale(z[1].inverse(z[1]),v[1]);
+        z[2]=hermitian_dot(v[0],v[1]);
+        z[2]=z[2].unit(z[2]);
+        z[3]=z[2].times(z[2],z[2].convert(0.0,1.0));
+        v[1]=v[1].scale(z[3],v[1]);
+        v[2]=v[1].plus(v[0],v[1]);
+        return(v[2]);
+    }
+
+    Vector C22(double s) {
+        Vector[] v=new Vector[10];
+        double[] d=new double[10];
+        Complex[] z=new Complex[10];
+
+        v[0]=P0(s);
+        v[1]=P1(s);
+        v[2]=P2(s);
+
+        z[0]=v[1].hermitian_dot(v[0],v[2]);
+        z[1]=v[1].hermitian_dot(v[1],v[2]);
+        v[0]=v[0].scale(z[0].inverse(z[0]),v[0]);
+        v[1]=v[1].scale(z[1].inverse(z[1]),v[1]);
+        z[2]=hermitian_dot(v[0],v[1]);
+        z[2]=z[2].unit(z[2]);
+        z[3]=z[2].times(z[2],z[2].convert(0.0,1.0));
+        v[1]=v[1].scale(z[3],v[1]);
+        v[2]=v[1].minus(v[0],v[1]);
+        return(v[2]);
+    }
+
+
+
+
+    Vector C11(double s) {
+        Vector[] v=new Vector[10];
+        double[] d=new double[10];
+        Complex[] z=new Complex[10];
+
+        v[0]=P0(s);
+        v[1]=P1(s);
+        v[2]=P2(s);
+
+        z[0]=v[1].hermitian_dot(v[0],v[1]);
+        z[2]=v[1].hermitian_dot(v[2],v[1]);
+        v[0]=v[0].scale(z[0].inverse(z[0]),v[0]);
+        v[2]=v[2].scale(z[2].inverse(z[2]),v[2]);
+        z[1]=hermitian_dot(v[0],v[2]);
+        z[1]=z[1].unit(z[1]);
+        z[3]=z[1].times(z[1],z[1].convert(0.0,1.0));
+        v[2]=v[2].scale(z[3],v[2]);
+        v[1]=v[2].plus(v[0],v[2]);
+        return(v[1]);
+    }
+
+
+
+    Vector C12(double s) {
+        Vector[] v=new Vector[10];
+        double[] d=new double[10];
+        Complex[] z=new Complex[10];
+
+        v[0]=P0(s);
+        v[1]=P1(s);
+        v[2]=P2(s);
+
+        z[0]=v[1].hermitian_dot(v[0],v[1]);
+        z[2]=v[1].hermitian_dot(v[2],v[1]);
+        v[0]=v[0].scale(z[0].inverse(z[0]),v[0]);
+        v[2]=v[2].scale(z[2].inverse(z[2]),v[2]);
+        z[1]=hermitian_dot(v[0],v[2]);
+        z[1]=z[1].unit(z[1]);
+        z[3]=z[1].times(z[1],z[1].convert(0.0,1.0));
+        v[2]=v[2].scale(z[3],v[2]);
+        v[1]=v[2].minus(v[0],v[2]);
+        return(v[1]);
+    }
+
+
+
+
+
+
+    Vector fix1(double s) {
+        Matrix m=new Matrix();
+        Matrix mm=new Matrix();
+        double test=0;
+        Vector v1=new Vector();
+        Vector v2=new Vector();
+        int i=0;
+        int count=0;
+        m=m.J1(s);
+        test=1.0;
+        mm=mm.critical_axis();
+        v1=v1.normalize(mm.b);
+        while(test>0.000000000001) {
+            v2=v2.normalize(m.act(v1));
+            test=v1.dist(v1,v2);
+            v1=v2;
         }
-        return v1;
+        return(v1);
     }
 
-    //Requires matrix class to be refactored
-    Vector fix2(double s)
-    {
-        Vector v2;
-        Matrix m = Matrix.J2(s);
-        double test = 1.0;
-        Matrix mm = Matrix.critical_axis();
-        Vector v1 = Vector.normalize(mm.b);
-        while (test > 0.000000000001)
-        {
-            v2 = Vector.normalize(m.act(v1));
-            test = Vector.dist(v1, v2);
-            v1 = v2;
+    Vector fix2(double s) {
+        Matrix m=new Matrix();
+        Matrix mm=new Matrix();
+        double test=0;
+        Vector v1=new Vector();
+        Vector v2=new Vector();
+        int i=0;
+        int count=0;
+        m=m.J2(s);
+        test=1.0;
+        mm=mm.critical_axis();
+        v1=v1.normalize(mm.b);
+        while(test>0.000000000001) {
+            v2=v2.normalize(m.act(v1));
+            test=v1.dist(v1,v2);
+            v1=v2;
         }
-        return (v1);
+        return(v1);
     }
 
-    //Requires matrix class to be refactored
-    Vector torus_vector1(double s)
-    {
-        Matrix m = Matrix.FIX(s);
-        m.a = Vector.normalize(m.a);
-        Complex z1 = new Complex(1, Math.sqrt(2.0 * Complex.norm(m.a.a) * Complex.norm(m.a.a) - 1.0));
-        Complex z3 = Complex.divide(z1, z1);
-        Complex z4 = Complex.conjugate(z3);
-        m.a = new Vector(z3, z4, m.a.c);
-        return m.a;
+    Vector torus_vector1(double s) {
+        Matrix m=new Matrix();
+        m=m.FIX(s);
+        Complex[] z=new Complex[5];
+        m.a=m.a.normalize(m.a);
+        for(int i=1;i<=4;++i) z[i]=new Complex();
+        z[1].x=1.0;
+        z[1].y=Math.sqrt(2.0*z[1].norm(m.a.a)*z[1].norm(m.a.a)-1.0);
+        z[2].x=2.0*m.a.b.x;
+        z[2].y=2.0*m.a.b.y;
+        z[3]=z[3].divide(z[1],z[2]);
+        z[4]=z[3].conjugate(z[3]);
+        m.a.a=z[3];
+        m.a.b=z[4];
+        return(m.a);
     }
 
-    //Requires matrix class to be refactored
-    Vector torus_vector2(double s)
-    {
-        Matrix m = Matrix.FIX(s);
-        Complex[] z = new Complex[5];
-        m.a = Vector.normalize(m.a);
-        for (int i = 1; i <= 4; ++i) z[i] = new Complex();
-        z[1].x = 1.0;
-        z[1].y = -Math.sqrt(2.0 * Complex.norm(m.a.a) * Complex.norm(m.a.a) - 1.0);
-        z[2].x = 2.0 * m.a.b.x;
-        z[2].y = 2.0 * m.a.b.y;
-        z[3] = Complex.divide(z[1], z[2]);
-        z[4] = Complex.conjugate(z[3]);
-        m.a.a = z[3];
-        m.a.b = z[4];
-        return (m.a);
+    Vector torus_vector2(double s) {
+        Matrix m=new Matrix();
+        m=m.FIX(s);
+        Complex[] z=new Complex[5];
+        m.a=m.a.normalize(m.a);
+        for(int i=1;i<=4;++i) z[i]=new Complex();
+        z[1].x=1.0;
+        z[1].y=-Math.sqrt(2.0*z[1].norm(m.a.a)*z[1].norm(m.a.a)-1.0);
+        z[2].x=2.0*m.a.b.x;
+        z[2].y=2.0*m.a.b.y;
+        z[3]=z[3].divide(z[1],z[2]);
+        z[4]=z[3].conjugate(z[3]);
+        m.a.a=z[3];
+        m.a.b=z[4];
+        return(m.a);
     }
 
-    //further refactoring required
-    static Vector spinalExtension(Vector v, Vector w, Vector X)
-    {
-        Vector[] x = new Vector[10];
-        Complex[] z = new Complex[10];
-        x[1] = X;
-        z[1] = Vector.hermitian_dot(x[1], v);
-        z[2] = new Complex(0.0, -1.0);
-        z[3] = Complex.times(z[1], z[2]);
-        x[2] = Vector.scale(Complex.inverse(z[3]), x[1]);
-        z[7] = Vector.hermitian_dot(w, v);
-        x[4] = Vector.scale(Complex.inverse(z[7]), w);
-        z[5] = Vector.hermitian_dot(x[4], x[2]);
-        z[6] = new Complex(-z[5].x, 0.0);
-        x[5] = Vector.plus(x[2], Vector.scale(z[6], v));
-        return (x[5]);
+
+    Vector spinalExtension(Vector v,Vector w,Vector X) {
+        Vector[] x=new Vector[10];
+        Complex[] z=new Complex[10];
+        x[1]=X;
+        z[1]=X.hermitian_dot(x[1],v);
+        z[2]=z[1].convert(0.0,-1.0);
+        z[3]=z[1].times(z[1],z[2]);
+        x[2]=X.scale(z[1].inverse(z[3]),x[1]);
+        z[7]=X.hermitian_dot(w,v);
+        x[4]=X.scale(z[7].inverse(z[7]),w);
+        z[5]=X.hermitian_dot(x[4],x[2]);
+        z[6]=z[5].convert(-z[5].x,0.0);
+        x[5]=X.plus(x[2],X.scale(z[6],v));
+        return(x[5]);
     }
+
 }

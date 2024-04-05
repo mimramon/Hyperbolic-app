@@ -1,28 +1,24 @@
-/*
-This class implements the double
-buffering.  The idea is to override the update
-command to have the new picture drawn all
-at once.
-*/
-
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
+/*This class implements the double
+buffering.  The idea is to override the update
+command, so as to have the new picture drawn all
+at once. */
+
 class DoubleBufferedCanvas extends Canvas
 {
-    Boolean on = true;
+    int on=1;
 
-    public void update(Graphics g)
-    {
-        if (!on)
-        {
-            g.setColor(Color.black);
-            g.fillRect(0, 0, getWidth(), getHeight());
-            paint(g);
-        } else
-        {
+    public void update(Graphics g) {
+        if(on==0) {g.setColor(Color.black);
+            g.fillRect(0,0,getSize().width,getSize().height);
+            paint(g);}
+
+        if(on==1) {
             Graphics g2;
-            Image offscreen = createImage(getSize().width, getSize().height);
+            Image offscreen = null;
+            offscreen = createImage(getSize().width, getSize().height);
             g2 = offscreen.getGraphics();
             paint(g2);
             g.drawImage(offscreen, 0, 0, this);
@@ -30,12 +26,11 @@ class DoubleBufferedCanvas extends Canvas
         }
     }
 
-    Point pinpoint(MouseEvent e)
-    {
+    Point pinpoint(MouseEvent e) {
         e.consume();
-        Point p = new Point();
-        p.x = e.getX();
-        p.y = e.getY();
-        return (p);
+        Point p=new Point();
+        p.x=e.getX();
+        p.y=e.getY();
+        return(p);
     }
 }
