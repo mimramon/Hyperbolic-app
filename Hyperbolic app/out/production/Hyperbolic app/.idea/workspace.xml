@@ -5,52 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37f1bc29-bee8-454d-92ef-62ffa5ba8a7f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Hyperbolic app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Hyperbolic app.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/artifacts/Hyperbolic_app_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Complex.java" beforeDir="false" afterPath="$PROJECT_DIR$/Complex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ControlCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/ControlCanvas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DocumentCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/DocumentCanvas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DoubleBufferedCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/DoubleBufferedCanvas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/HorizontalSlider.java" beforeDir="false" afterPath="$PROJECT_DIR$/HorizontalSlider.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ListenSquare.java" beforeDir="false" afterPath="$PROJECT_DIR$/ListenSquare.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/Matrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlotCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/PlotCanvas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlotControlCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/PlotControlCanvas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RSphere.java" beforeDir="false" afterPath="$PROJECT_DIR$/RSphere.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Segment.java" beforeDir="false" afterPath="$PROJECT_DIR$/Segment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TextCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/TextCanvas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/Vector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/Hyperbolic_app_jar/Hyperbolic app.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/.idea/.name" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/.idea/Hyperbolic app.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/.idea/artifacts/Hyperbolic_app_jar.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/Complex.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/Complex.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/ControlCanvas.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/ControlCanvas.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/DocumentCanvas.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/DocumentCanvas.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/DoubleBufferedCanvas.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/DoubleBufferedCanvas.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/HorizontalSlider.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/HorizontalSlider.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/ListenSquare.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/ListenSquare.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/Matrix.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/Matrix.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/PlotCanvas.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/PlotCanvas.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/PlotControlCanvas.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/PlotControlCanvas.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/RSphere.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/RSphere.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/Segment.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/Segment.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/TextCanvas.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/TextCanvas.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/Vector.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/Vector.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +32,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Gui-change"
+    "git-widget-placeholder": "refactor-complex"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
