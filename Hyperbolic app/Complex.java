@@ -16,120 +16,78 @@ class Complex
         this.y = y;
     }
 
-    static Complex convert(double x, double y)
-    {
-        return new Complex(x, y);
-    }
-
     static double arg(Complex z)
     {
         double d = Math.atan2(z.y, z.x);
-        if (z.y < 0.0)
+        if (z.y < 0)
         {
-            d = d + 2.0 * Math.PI;
+            d += 2 * Math.PI;
         }
         return d;
     }
 
 
-    static double guided_arg(Complex z1, Complex z2)
+    static double guidedArg(Complex z, Complex w)
     {
-        double d1, d2, d3;
-        d1 = Complex.arg(z1);
-        d2 = Complex.arg(z2);
-        d3 = 0.0;
-        if (Math.abs(d1 - d2) < Math.PI)
+        double guidedArg = (Complex.arg(z) / 2.0) + (Complex.arg(w) / 2.0);
+        if (Math.abs(Complex.arg(z) - Complex.arg(w)) >= Math.PI)
         {
-            d3 = (d1 / 2.0) + (d2 / 2.0);
+            guidedArg += Math.PI;
         }
-        if (Math.abs(d1 - d2) >= Math.PI)
-        {
-            d3 = Math.PI + d1 / 2.0 + d2 / 2.0;
-        }
-        return (d3);
+        return guidedArg;
     }
 
-    double norm(Complex z)
+    static double norm(Complex z)
     {
-        double d = Math.sqrt(z.x * z.x + z.y * z.y);
-        return (d);
+        return Math.sqrt(z.x * z.x + z.y * z.y);
     }
 
-    Complex square_root(Complex z)
+    static Complex squareRoot(Complex z)
     {
-        Complex w = new Complex();
-        double r = z.norm(z);
-        r = Math.sqrt(r);
-        double theta = z.arg(z);
-        w = w.convert(r * Math.cos(theta / 2.0), r * Math.sin(theta / 2.0));
-        return (w);
+        double r = Math.sqrt(Complex.norm(z));
+        double theta = Complex.arg(z);
+        return new Complex(r * Math.cos(theta / 2), r * Math.sin(theta / 2));
     }
 
-    Complex unit(Complex z)
+    static Complex unit(Complex z)
     {
-        Complex w = new Complex();
-        double d;
-        d = z.norm(z);
-        w.x = z.x / d;
-        w.y = z.y / d;
-        return (w);
+        return new Complex(z.x / Complex.norm(z), z.y / Complex.norm(z));
     }
 
-    Complex plus(Complex z1, Complex z2)
+    static Complex add(Complex z, Complex w)
     {
-        Complex w = new Complex();
-        w.x = z1.x + z2.x;
-        w.y = z1.y + z2.y;
-        return (w);
+        return new Complex(z.x + w.x, z.y + w.y);
     }
 
-    Complex minus(Complex z1, Complex z2)
+    static Complex subtract(Complex z, Complex w)
     {
-        Complex w = new Complex();
-        w.x = z1.x - z2.x;
-        w.y = z1.y - z2.y;
-        return (w);
+        return new Complex(z.x - w.x, z.y - w.y);
     }
 
-    Complex times(Complex z1, Complex z2)
+    static Complex multiply(Complex z, Complex w)
     {
-        Complex w = new Complex();
-        w.x = z1.x * z2.x - z1.y * z2.y;
-        w.y = z1.x * z2.y + z1.y * z2.x;
-        return (w);
+        return new Complex((z.x * w.x) - (z.y * w.y), (z.x * w.y) + (z.y * w.x));
     }
 
-    Complex inverse(Complex z)
+    static Complex inverse(Complex z)
     {
-        Complex w = new Complex();
-        double d;
-        d = z.x * z.x + z.y * z.y;
-        w.x = z.x / d;
-        w.y = -z.y / d;
-        return (w);
+        double d = z.x * z.x + z.y * z.y;
+        return new Complex(z.x / d, -z.y / d);
     }
 
-    Complex divide(Complex z1, Complex z2)
+    static Complex divide(Complex z, Complex w)
     {
-        Complex w = new Complex();
-        w = w.times(z1, w.inverse(z2));
-        return (w);
+        return Complex.multiply(z, Complex.inverse(w));
     }
 
-    Complex conjugate(Complex z)
+    static Complex conjugate(Complex z)
     {
-        Complex w = new Complex();
-        w.x = z.x;
-        w.y = -z.y;
-        return (w);
+        return new Complex(z.x, -z.y);
     }
 
-    Complex beta(double s)
+    static Complex beta(double s)
     {
-        Complex z = new Complex();
-        z.x = s / Math.sqrt(2.0 + 2.0 * s * s);
-        z.y = 1.0 / Math.sqrt(2.0 + 2.0 * s * s);
-        return (z);
+        return new Complex(s / Math.sqrt(2 + 2 * s * s), 1 / Math.sqrt(2 + 2 * s * s));
     }
 
     void print()
@@ -137,21 +95,19 @@ class Complex
         System.out.println(x + "    " + y + " I");
     }
 
-
     void doubleRender(double d, Graphics g, int x, int y)
     {
         double[] e = new double[7];
         int[] n = new int[7];
-        Integer I = new Integer(0);
         e[0] = d;
         n[0] = (int) (e[0]);
-        g.drawString(I.toString(n[0]), x + 10, y);
+        g.drawString(Integer.toString(n[0]), x + 10, y);
         g.fillOval(x + 18, y - 2, 2, 2);
-        for (int i = 1; i <= 5; ++i)
+        for (int i = 1; i <= 5; i++)
         {
             e[i] = 10.0 * (e[i - 1] - n[i - 1]);
             n[i] = (int) (e[i]);
-            g.drawString(I.toString(n[i]), x + 15 + 8 * i, y);
+            g.drawString(Integer.toString(n[i]), x + 15 + 8 * i, y);
         }
     }
 
@@ -159,18 +115,15 @@ class Complex
     {
         double[] e = new double[7];
         int[] n = new int[7];
-        Integer I = new Integer(0);
         e[0] = d;
         n[0] = (int) (e[0]);
-        g.drawString(I.toString(n[0]), x + 10, y);
+        g.drawString(Integer.toString(n[0]), x + 10, y);
         g.fillOval(x + 18, y - 2, 2, 2);
-        for (int i = 1; i <= 3; ++i)
+        for (int i = 1; i <= 3; i++)
         {
             e[i] = 10.0 * (e[i - 1] - n[i - 1]);
             n[i] = (int) (e[i]);
-            g.drawString(I.toString(n[i]), x + 15 + 8 * i, y);
+            g.drawString(Integer.toString(n[i]), x + 15 + 8 * i, y);
         }
     }
-
-
 }
