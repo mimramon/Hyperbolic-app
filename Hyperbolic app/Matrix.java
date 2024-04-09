@@ -161,8 +161,8 @@ class Matrix
         m.c.a = mu;
         m.c.b = Complex.conjugate(mu);
         m.c.c = new Complex(1.0, 0.0);
-        m.a = m.a.hermitian_cross(m.b, m.c);
-        m.a = m.a.normalize(m.a);
+        m.a = Vector.hermitianCross(m.b, m.c);
+        m.a = Vector.normalize(m.a);
         return (m);
     }
 
@@ -177,19 +177,19 @@ class Matrix
         m.c = m.b.fix2(s);
         /********adjusting the lifts**********/
         z[1] = new Complex(0.0, 1.0);
-        z[2] = v.hermitian_dot(m.b, m.c);
+        z[2] = Vector.hermitianDot(m.b, m.c);
         z[3] = Complex.divide(z[1], z[2]);
-        m.b = v.scale(z[3], m.b);
+        m.b = Vector.scale(z[3], m.b);
         d[1] = Math.sqrt(Complex.norm(m.b.c));
         z[4] = new Complex(d[1], 0.0);
         z[5] = new Complex(1.0 / d[1], 0.0);
-        m.b = v.scale(z[5], m.b);
-        m.c = v.scale(z[4], m.c);
+        m.b = Vector.scale(z[5], m.b);
+        m.c = Vector.scale(z[4], m.c);
         z[6] = Complex.inverse(Complex.unit(Complex.squareRoot(m.b.c)));
-        m.b = m.b.scale(z[6], m.b);
-        m.c = m.b.scale(z[6], m.c);
+        m.b = Vector.scale(z[6], m.b);
+        m.c = Vector.scale(z[6], m.c);
         /**************************************/
-        m.a = v.hermitian_cross(m.b, m.c);
+        m.a = Vector.hermitianCross(m.b, m.c);
         return (m);
     }
 
@@ -201,7 +201,7 @@ class Matrix
         Vector v2 = new Vector();
         v1 = v1.torus_vector1(s);
         v2 = v2.torus_vector2(s);
-        m.a = v1.hermitian_cross(v1, v2);
+        m.a = Vector.hermitianCross(v1, v2);
         m.b = v2;
         m.c = v1;
         return (m);
@@ -212,9 +212,9 @@ class Matrix
     {
         Complex[] z = new Complex[5];
         double d = 0.0;
-        z[1] = v.hermitian_dot(v, this.a);
-        z[2] = v.hermitian_dot(v, this.b);
-        z[3] = v.hermitian_dot(v, this.c);
+        z[1] = Vector.hermitianDot(v, this.a);
+        z[2] = Vector.hermitianDot(v, this.b);
+        z[3] = Vector.hermitianDot(v, this.c);
         d = Complex.arg(z[1]) - Complex.guidedArg(z[2], z[3]);
         d = d - Math.PI;
         if (d < 0) d = d + 2.0 * Math.PI;
@@ -228,8 +228,8 @@ class Matrix
         Complex[] z = new Complex[6];
         double d = 0.0;
         double dd = 0.0;
-        z[2] = v.hermitian_dot(v, this.b);
-        z[3] = v.hermitian_dot(v, this.c);
+        z[2] = Vector.hermitianDot(v, this.b);
+        z[3] = Vector.hermitianDot(v, this.c);
         z[4] = Complex.divide(z[2], z[3]);
         d = Math.log(Complex.norm(z[4]));
         return d;
@@ -260,9 +260,9 @@ class Matrix
         Vector w = new Vector();
         double test = 0.0;
         Complex z = new Complex();
-        w.a = w.hermitian_dot(v, this.a);
-        w.b = w.hermitian_dot(v, this.b);
-        w.c = w.hermitian_dot(v, this.c);
+        w.a = Vector.hermitianDot(v, this.a);
+        w.b = Vector.hermitianDot(v, this.b);
+        w.c = Vector.hermitianDot(v, this.c);
         test = Complex.norm(w.c);
         if (test > .00001) z = Complex.divide(w.a, w.c);
         return z;
@@ -275,9 +275,9 @@ class Matrix
         Complex z1 = new Complex(1.0, 0.0);
         Complex z2 = new Complex(1.0, 0.0);
         Complex z3 = new Complex(1.0, 0.0);
-        w.a = w.hermitian_dot(v, this.a);
-        w.b = w.hermitian_dot(v, this.b);
-        w.c = w.hermitian_dot(v, this.c);
+        w.a = Vector.hermitianDot(v, this.a);
+        w.b = Vector.hermitianDot(v, this.b);
+        w.c = Vector.hermitianDot(v, this.c);
         test = Complex.norm(w.c);
         if (test > .00001) z1 = Complex.divide(w.a, w.c);
         z1 = Complex.multiply(u, z1);
@@ -333,15 +333,15 @@ class Matrix
         Complex ss = new Complex();
         Vector w2 = new Vector();
         d = map2(v);
-        d = Math.exp(d * Complex.norm(w2.hermitian_dot(b, c)));
+        d = Math.exp(d * Complex.norm(Vector.hermitianDot(b, c)));
         d = 1.0 / d;
         cc.x = 1.0 / Math.sqrt(1.0 + d * d);
         ss.x = d / Math.sqrt(1.0 + d * d);
         cc.y = 0.0;
         ss.y = 0.0;
-        w2 = w2.plus(w2.scale(ss, b), w2.scale(cc, c));
-        w2 = w2.normalize(w2);
-        return (w2);
+        w2 = Vector.add(Vector.scale(ss, b), Vector.scale(cc, c));
+        w2 = Vector.normalize(w2);
+        return w2;
     }
 
     Vector harmonic2(Vector v)
@@ -351,15 +351,15 @@ class Matrix
         Complex ss = new Complex();
         Vector w2 = new Vector();
         d = map2(v);
-        d = Math.exp(d * Complex.norm(w2.hermitian_dot(b, c)));
+        d = Math.exp(d * Complex.norm(Vector.hermitianDot(b, c)));
         d = 1.0 / d;
         cc.x = -1.0 / Math.sqrt(1.0 + d * d);
         ss.x = d / Math.sqrt(1.0 + d * d);
         cc.y = 0.0;
         ss.y = 0.0;
-        w2 = w2.plus(w2.scale(ss, b), w2.scale(cc, c));
-        w2 = w2.normalize(w2);
-        return (w2);
+        w2 = Vector.add(Vector.scale(ss, b), Vector.scale(cc, c));
+        w2 = Vector.normalize(w2);
+        return w2;
     }
 
     Matrix doCone(Vector v)
@@ -370,7 +370,7 @@ class Matrix
         m.c = v;
         m.b = harmonic1(v);
         m2 = m.perfect_basis();
-        return (m2);
+        return m2;
     }
 
     Matrix doLCone(Vector v)
@@ -405,14 +405,14 @@ class Matrix
         Complex[] z = new Complex[7];
         z[1] = new Complex();
         z[1] = new Complex(0.0, 1.0);
-        z[2] = p.hermitian_dot(a, b);
+        z[2] = Vector.hermitianDot(a, b);
         z[2] = Complex.unit(z[2]);
         z[3] = Complex.divide(z[1], z[2]);
-        w = w.scale(z[3], a);
+        w = Vector.scale(z[3], a);
         z[4] = new Complex(Math.cos(t), 0.0);
         z[5] = new Complex(Math.sin(t), 0.0);
-        p = p.plus(p.scale(z[4], w), p.scale(z[5], b));
-        p = p.normalize(p);
+        p = Vector.add(Vector.scale(z[4], w), Vector.scale(z[5], b));
+        p = Vector.normalize(p);
         return (p);
     }
 
@@ -424,19 +424,19 @@ class Matrix
         Complex[] z = new Complex[5];
         Matrix m = new Matrix();
         w[1] = new Vector();
-        w[1] = w[1].scale(w[1].hermitian_dot(b, c), a);
-        w[2] = w[1].scale(w[1].hermitian_dot(c, a), b);
-        w[3] = w[1].scale(w[1].hermitian_dot(a, b), c);
-        z[1] = w[1].hermitian_dot(w[1], w[2]);
+        w[1] = Vector.scale(Vector.hermitianDot(b, c), a);
+        w[2] = Vector.scale(Vector.hermitianDot(c, a), b);
+        w[3] = Vector.scale(Vector.hermitianDot(a, b), c);
+        z[1] = Vector.hermitianDot(w[1], w[2]);
         z[1] = Complex.unit(z[1]);
         z[1] = Complex.inverse(z[1]);
-        z[2] = w[1].hermitian_dot(w[2], w[3]);
+        z[2] = Vector.hermitianDot(w[2], w[3]);
         z[2] = Complex.unit(z[2]);
         z[3] = new Complex(-1.0, 0.0);
-        m.a = w[1].scale(z[1], w[1]);
-        m.c = w[1].scale(z[2], w[3]);
-        m.b = w[1].scale(z[3], w[2]);
-        return (m);
+        m.a = Vector.scale(z[1], w[1]);
+        m.c = Vector.scale(z[2], w[3]);
+        m.b = Vector.scale(z[3], w[2]);
+        return m;
     }
 
     /*this routine supposes that the vectors lie in an R-circle*/
@@ -452,11 +452,11 @@ class Matrix
         z[1] = new Complex(t * (t - 1.0), 0);
         z[2] = new Complex(t, 0.0);
         z[3] = new Complex(1.0 - t, 0.0);
-        w[1] = w[1].scale(z[1], m.a);
-        w[2] = w[1].scale(z[2], m.b);
-        w[3] = w[1].scale(z[3], m.c);
-        w[4] = w[1].plus(w[1].plus(w[1], w[2]), w[3]);
-        w[5] = w[1].normalize(w[4]);
-        return (w[5]);
+        w[1] = Vector.scale(z[1], m.a);
+        w[2] = Vector.scale(z[2], m.b);
+        w[3] = Vector.scale(z[3], m.c);
+        w[4] = Vector.add(Vector.add(w[1], w[2]), w[3]);
+        w[5] = Vector.normalize(w[4]);
+        return w[5];
     }
 }
