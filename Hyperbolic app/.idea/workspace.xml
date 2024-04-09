@@ -6,10 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="37f1bc29-bee8-454d-92ef-62ffa5ba8a7f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Complex.java" beforeDir="false" afterPath="$PROJECT_DIR$/Complex.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/Matrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PlotCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/PlotCanvas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RSphere.java" beforeDir="false" afterPath="$PROJECT_DIR$/RSphere.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/Vector.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -36,7 +32,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "refactor-complex"
+    "git-widget-placeholder": "Vector-refactor"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
