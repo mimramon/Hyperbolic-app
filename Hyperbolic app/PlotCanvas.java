@@ -228,14 +228,14 @@ class PlotCanvas extends DoubleBufferedCanvas implements MouseListener, MouseMot
         Segment B = new Segment(w1, w2, C);
         for (int i = 1; i <= NUMBER; ++i)
         {
-            test = A[i].z1.x - A[i].z2.x;
+            test = A[i].z.x - A[i].w.x;
             test = Math.abs(test);
             if (test < 2.0)
             {
-                B.z1.x = A[i].z1.x * XSCALE + XORIGIN;
-                B.z1.y = A[i].z1.y * YSCALE + YORIGIN;
-                B.z2.x = A[i].z2.x * XSCALE + XORIGIN;
-                B.z2.y = A[i].z2.y * YSCALE + YORIGIN;
+                B.z.x = A[i].z.x * XSCALE + XORIGIN;
+                B.z.y = A[i].z.y * YSCALE + YORIGIN;
+                B.w.x = A[i].w.x * XSCALE + XORIGIN;
+                B.w.y = A[i].w.y * YSCALE + YORIGIN;
                 B.C = C;
                 B.render(g);
             }
@@ -243,42 +243,42 @@ class PlotCanvas extends DoubleBufferedCanvas implements MouseListener, MouseMot
             if (TYPE == 1)
             {
 
-                if ((A[i].z2.x < A[i].z1.x) && (test > 2.0))
+                if ((A[i].w.x < A[i].z.x) && (test > 2.0))
                 {
-                    B.z1.x = (A[i].z1.x) * XSCALE + XORIGIN;
-                    B.z1.y = A[i].z1.y * YSCALE + YORIGIN;
-                    B.z2.x = (4.0 + A[i].z2.x) * XSCALE + XORIGIN;
-                    B.z2.y = A[i].z2.y * YSCALE + YORIGIN;
+                    B.z.x = (A[i].z.x) * XSCALE + XORIGIN;
+                    B.z.y = A[i].z.y * YSCALE + YORIGIN;
+                    B.w.x = (4.0 + A[i].w.x) * XSCALE + XORIGIN;
+                    B.w.y = A[i].w.y * YSCALE + YORIGIN;
                     B.C = C;
                     B.render(g);
                 }
 
-                if ((A[i].z2.x > A[i].z1.x) && (test > 2.0))
+                if ((A[i].w.x > A[i].z.x) && (test > 2.0))
                 {
-                    B.z1.x = (4.0 + A[i].z1.x) * XSCALE + XORIGIN;
-                    B.z1.y = A[i].z1.y * YSCALE + YORIGIN;
-                    B.z2.x = (A[i].z2.x) * XSCALE + XORIGIN;
-                    B.z2.y = A[i].z2.y * YSCALE + YORIGIN;
+                    B.z.x = (4.0 + A[i].z.x) * XSCALE + XORIGIN;
+                    B.z.y = A[i].z.y * YSCALE + YORIGIN;
+                    B.w.x = (A[i].w.x) * XSCALE + XORIGIN;
+                    B.w.y = A[i].w.y * YSCALE + YORIGIN;
                     B.C = C;
                     B.render(g);
                 }
 
-                if ((A[i].z2.x < A[i].z1.x) && (test > 2.0))
+                if ((A[i].w.x < A[i].z.x) && (test > 2))
                 {
-                    B.z1.x = (-4.0 + A[i].z1.x) * XSCALE + XORIGIN;
-                    B.z1.y = A[i].z1.y * YSCALE + YORIGIN;
-                    B.z2.x = (A[i].z2.x) * XSCALE + XORIGIN;
-                    B.z2.y = A[i].z2.y * YSCALE + YORIGIN;
+                    B.z.x = (-4 + A[i].z.x) * XSCALE + XORIGIN;
+                    B.z.y = A[i].z.y * YSCALE + YORIGIN;
+                    B.w.x = (A[i].w.x) * XSCALE + XORIGIN;
+                    B.w.y = A[i].w.y * YSCALE + YORIGIN;
                     B.C = C;
                     B.render(g);
                 }
 
-                if ((A[i].z2.x > A[i].z1.x) && (test > 2.0))
+                if ((A[i].w.x > A[i].z.x) && (test > 2))
                 {
-                    B.z1.x = (A[i].z1.x) * XSCALE + XORIGIN;
-                    B.z1.y = A[i].z1.y * YSCALE + YORIGIN;
-                    B.z2.x = (-4.0 + A[i].z2.x) * XSCALE + XORIGIN;
-                    B.z2.y = A[i].z2.y * YSCALE + YORIGIN;
+                    B.z.x = (A[i].z.x) * XSCALE + XORIGIN;
+                    B.z.y = A[i].z.y * YSCALE + YORIGIN;
+                    B.w.x = (-4.0 + A[i].w.x) * XSCALE + XORIGIN;
+                    B.w.y = A[i].w.y * YSCALE + YORIGIN;
                     B.C = C;
                     B.render(g);
                 }
@@ -302,7 +302,7 @@ class PlotCanvas extends DoubleBufferedCanvas implements MouseListener, MouseMot
             m.a = S1.P0;
             m.b = S1.P2;
             v1 = S1.M2.c;
-            v1 = v1.normalize(v1);
+            v1 = Vector.normalize(v1);
             m.b.a = v1.a;
         }
 
@@ -311,7 +311,7 @@ class PlotCanvas extends DoubleBufferedCanvas implements MouseListener, MouseMot
             m.a = S1.P0;
             m.b = S1.P1;
             v1 = S1.M2.c;
-            v1 = v1.normalize(v1);
+            v1 = Vector.normalize(v1);
             m.b.b = v1.b;
             m.a = S1.C21;
             m.b = S1.C22;
@@ -322,12 +322,12 @@ class PlotCanvas extends DoubleBufferedCanvas implements MouseListener, MouseMot
         z1 = doCoords(v1);
         for (int i = 1; i <= n; ++i)
         {
-            A[i].z1 = z1;
+            A[i].z = z1;
             u2 = i;
             u2 = Math.PI * u2 / n;
             v2 = m.C_param(u2);
-            A[i].z2 = doCoords(v2);
-            z1 = A[i].z2;
+            A[i].w = doCoords(v2);
+            z1 = A[i].w;
         }
     }
 
@@ -354,12 +354,12 @@ class PlotCanvas extends DoubleBufferedCanvas implements MouseListener, MouseMot
             Complex z1 = doCoords(v1);
             for (int i = lim1; i <= lim2; ++i)
             {
-                A[i].z1 = z1;
+                A[i].z = z1;
                 u2 = i;
                 u2 = u2 / n;
                 v2 = M.R_param(u2);
-                A[i].z2 = doCoords(v2);
-                z1 = A[i].z2;
+                A[i].w = doCoords(v2);
+                z1 = A[i].w;
             }
 
             if (q == 1) M = S1.M1.doLCone(S1.C11);
@@ -368,12 +368,12 @@ class PlotCanvas extends DoubleBufferedCanvas implements MouseListener, MouseMot
             z1 = doCoords(v1);
             for (int i = lim1; i <= lim2; ++i)
             {
-                A[i + num].z1 = z1;
+                A[i + num].z = z1;
                 u2 = i;
                 u2 = u2 / n;
                 v2 = M.R_param(u2);
-                A[i + num].z2 = doCoords(v2);
-                z1 = A[i + num].z2;
+                A[i + num].w = doCoords(v2);
+                z1 = A[i + num].w;
             }
 
             if (q == 1) M = S1.M1.doRCone(S1.C11);
@@ -383,12 +383,12 @@ class PlotCanvas extends DoubleBufferedCanvas implements MouseListener, MouseMot
             z1 = doCoords(v1);
             for (int i = lim1; i <= lim2; ++i)
             {
-                A[i + 2 * num].z1 = z1;
+                A[i + 2 * num].z = z1;
                 u2 = i;
                 u2 = u2 / n;
                 v2 = M.R_param(u2);
-                A[i + 2 * num].z2 = doCoords(v2);
-                z1 = A[i + 2 * num].z2;
+                A[i + 2 * num].w = doCoords(v2);
+                z1 = A[i + 2 * num].w;
             }
         }
     }
@@ -415,15 +415,15 @@ class PlotCanvas extends DoubleBufferedCanvas implements MouseListener, MouseMot
             Complex z1 = doCoords(v1);
             for (int i = 1; i <= n; ++i)
             {
-                A[i].z1 = z1;
+                A[i].z = z1;
                 u2 = i;
                 u2 = Math.PI * u2 / n;
                 v2 = m.C_param(u2);
                 if (q == 1) v2 = S1.I2.act(v2);
                 if (q == 2) v2 = S1.I1.act(v2);
 
-                A[i].z2 = doCoords(v2);
-                z1 = A[i].z2;
+                A[i].w = doCoords(v2);
+                z1 = A[i].w;
             }
         }
     }
@@ -450,14 +450,14 @@ class PlotCanvas extends DoubleBufferedCanvas implements MouseListener, MouseMot
             Complex z1 = doCoords(v1);
             for (int i = 1; i <= n; ++i)
             {
-                A[i].z1 = z1;
+                A[i].z = z1;
                 u2 = i;
                 u2 = 0.5 * Math.PI * u2 / n;
                 v2 = m.C_param(u2);
                 if (q == 1) v2 = S1.I2.act(v2);
                 if (q == 2) v2 = S1.I1.act(v2);
-                A[i].z2 = doCoords(v2);
-                z1 = A[i].z2;
+                A[i].w = doCoords(v2);
+                z1 = A[i].w;
             }
         }
     }
@@ -498,14 +498,14 @@ class PlotCanvas extends DoubleBufferedCanvas implements MouseListener, MouseMot
             Complex z1 = doCoords(v1);
             for (int i = 1; i <= n; ++i)
             {
-                A[i].z1 = z1;
+                A[i].z = z1;
                 u2 = i;
                 u2 = 0.5 * Math.PI * u2 / n;
                 v2 = mm.C_param(u2);
                 if (q == 1) v2 = S1.I2.act(v2);
                 if (q == 2) v2 = S1.I1.act(v2);
-                A[i].z2 = doCoords(v2);
-                z1 = A[i].z2;
+                A[i].w = doCoords(v2);
+                z1 = A[i].w;
             }
         }
     }
@@ -566,14 +566,14 @@ class PlotCanvas extends DoubleBufferedCanvas implements MouseListener, MouseMot
 
         for (int i = lim1; i <= lim2; ++i)
         {
-            A[i].z1 = z1;
+            A[i].z = z1;
             u2 = i;
             u2 = u2 / n;
             v2 = M.R_param(u2);
             if ((q == 1) && (k > 3)) v2 = S1.I1.act(v2);
             if ((q == 2) && (k > 3)) v2 = S1.I2.act(v2);
-            A[i].z2 = doCoords(v2);
-            z1 = A[i].z2;
+            A[i].w = doCoords(v2);
+            z1 = A[i].w;
         }
     }
 
@@ -607,12 +607,12 @@ class PlotCanvas extends DoubleBufferedCanvas implements MouseListener, MouseMot
 
             for (int i = 1; i <= n; ++i)
             {
-                A[i].z1 = z1;
+                A[i].z = z1;
                 u2 = i;
                 u2 = u2 / n;
                 v2 = m2.R_param(u2);
-                A[i].z2 = doCoords(v2);
-                z1 = A[i].z2;
+                A[i].w = doCoords(v2);
+                z1 = A[i].w;
             }
         }
     }
