@@ -194,8 +194,8 @@ class RSphere
         Z4 = M1.PLAN2(P0);
 
         double sym = getOptimalWeight();
-        C11 = C11.scale(new Complex(sym, 0.0), C11);
-        C22 = C22.scale(new Complex(sym, 0.0), C22);
+        C11 = Vector.scale(new Complex(sym, 0.0), C11);
+        C22 = Vector.scale(new Complex(sym, 0.0), C22);
         Z5 = new Complex();
         Z7 = new Complex();
         Z6 = new Complex();
@@ -213,7 +213,7 @@ class RSphere
         Matrix m = new Matrix();
         m.b = C11;
         m.a = C12;
-        double d = M1.map2(m.C_param(Math.PI / 4.0));
+        double d = M1.map2(m.C_param(Math.PI / 4));
         d = Math.abs(d);
         return (d);
     }
@@ -279,12 +279,12 @@ class RSphere
             t3 = 0.5 * t1 + 0.5 * t2;
             if (s <= 2)
             {
-                m.b = m.a.scale(new Complex(t3, 0.0), P0);
+                m.b = Vector.scale(new Complex(t3, 0.0), P0);
                 m.a = C12;
             }
             if (s > 2)
             {
-                m.b = m.a.scale(new Complex(t3, 0.0), C11);
+                m.b = Vector.scale(new Complex(t3, 0.0), C11);
                 m.a = C12;
             }
             x1 = M2.ELEV1(m.C_param(Math.PI / 4.0 - .00001), dummy);
@@ -316,7 +316,7 @@ class RSphere
         while (sign == 0)
         {
             t3 = 0.5 * t1 + 0.5 * t2;
-            m.a = m.a.scale(new Complex(t3, 0.0), C11);
+            m.a = Vector.scale(new Complex(t3, 0.0), C11);
             m.b = C12;
             x1 = M1.map2(m.C_param(Math.PI / 4.0 - .00001));
             x2 = M1.map2(m.C_param(Math.PI / 4.0));

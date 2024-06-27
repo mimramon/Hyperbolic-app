@@ -6,21 +6,22 @@ class Matrix
 
     Matrix()
     {
-        this.a = new Vector();
-        this.b = new Vector();
-        this.c = new Vector();
+        a = new Vector();
+        b = new Vector();
+        c = new Vector();
     }
 
-
+    //investigate further
     Vector act(Vector v)
     {
         Vector w = new Vector();
-        w.a = w.dot(a, v);
-        w.b = w.dot(b, v);
-        w.c = w.dot(c, v);
+        w.a = Vector.dot(a, v);
+        w.b = Vector.dot(b, v);
+        w.c = Vector.dot(c, v);
         return (w);
     }
 
+    //investigate further
     Matrix transpose()
     {
         Matrix w = new Matrix();
@@ -36,21 +37,22 @@ class Matrix
         return (w);
     }
 
-    Matrix times(Matrix m1, Matrix m2)
+
+    Matrix times(Matrix m, Matrix n)
     {
         Matrix w = new Matrix();
-        Matrix mm2 = new Matrix();
-        mm2 = m2.transpose();
-        w.a.a = w.a.dot(m1.a, mm2.a);
-        w.a.b = w.a.dot(m1.a, mm2.b);
-        w.a.c = w.a.dot(m1.a, mm2.c);
-        w.b.a = w.a.dot(m1.b, mm2.a);
-        w.b.b = w.a.dot(m1.b, mm2.b);
-        w.b.c = w.a.dot(m1.b, mm2.c);
-        w.c.a = w.a.dot(m1.c, mm2.a);
-        w.c.b = w.a.dot(m1.c, mm2.b);
-        w.c.c = w.a.dot(m1.c, mm2.c);
-        return (w);
+        Matrix newMat = new Matrix();
+        newMat = n.transpose();
+        w.a.a = Vector.dot(m.a, newMat.a);
+        w.a.b = Vector.dot(m.a, newMat.b);
+        w.a.c = Vector.dot(m.a, newMat.c);
+        w.b.a = Vector.dot(m.b, newMat.a);
+        w.b.b = Vector.dot(m.b, newMat.b);
+        w.b.c = Vector.dot(m.b, newMat.c);
+        w.c.a = Vector.dot(m.c, newMat.a);
+        w.c.b = Vector.dot(m.c, newMat.b);
+        w.c.c = Vector.dot(m.c, newMat.c);
+        return w;
     }
 
     Matrix I0(double s)
