@@ -112,19 +112,19 @@ class Vector
         return z[4];
     }
 
-    Vector P0(double s)
+    static Vector P0(double s)
     {
         return new Vector(Complex.beta(s), Complex.conjugate(Complex.beta(s)), new Complex(1, 0));
     }
 
 
-    Vector P1(double s)
+    static Vector P1(double s)
     {
         return new Vector(Complex.beta(s), Complex.beta(s), new Complex(1, 0));
     }
 
 
-    Vector P2(double s)
+    static Vector P2(double s)
     {
         return new Vector(Complex.conjugate(Complex.beta(s)), Complex.conjugate(Complex.beta(s)), new Complex(1, 0));
     }

@@ -11,6 +11,13 @@ class Matrix
         c = new Vector();
     }
 
+    Matrix(Vector _a, Vector _b, Vector _c)
+    {
+        a = _a;
+        b = _b;
+        c = _c;
+    }
+
     //investigate further
     Vector act(Vector v)
     {
@@ -22,129 +29,67 @@ class Matrix
     }
 
     //investigate further
-    Matrix transpose()
+    static Matrix transpose(Matrix m)
     {
-        Matrix w = new Matrix();
-        w.a.a = a.a;
-        w.a.b = b.a;
-        w.a.c = c.a;
-        w.b.a = a.b;
-        w.b.b = b.b;
-        w.b.c = c.b;
-        w.c.a = a.c;
-        w.c.b = b.c;
-        w.c.c = c.c;
-        return (w);
+        return new Matrix(
+                new Vector(m.a.a, m.b.a, m.c.a),
+                new Vector(m.a.b, m.b.b, m.c.b),
+                new Vector(m.a.c, m.b.c, m.c.c)
+        );
     }
 
 
-    Matrix times(Matrix m, Matrix n)
+    static Matrix times(Matrix m, Matrix n)
     {
-        Matrix w = new Matrix();
-        Matrix newMat = new Matrix();
-        newMat = n.transpose();
-        w.a.a = Vector.dot(m.a, newMat.a);
-        w.a.b = Vector.dot(m.a, newMat.b);
-        w.a.c = Vector.dot(m.a, newMat.c);
-        w.b.a = Vector.dot(m.b, newMat.a);
-        w.b.b = Vector.dot(m.b, newMat.b);
-        w.b.c = Vector.dot(m.b, newMat.c);
-        w.c.a = Vector.dot(m.c, newMat.a);
-        w.c.b = Vector.dot(m.c, newMat.b);
-        w.c.c = Vector.dot(m.c, newMat.c);
-        return w;
+        Matrix newMat = Matrix.transpose(n);
+        return new Matrix(
+                new Vector(Vector.dot(m.a, newMat.a), Vector.dot(m.a, newMat.b), Vector.dot(m.a, newMat.c)),
+                new Vector(Vector.dot(m.b, newMat.a), Vector.dot(m.b, newMat.b), Vector.dot(m.b, newMat.c)),
+                new Vector(Vector.dot(m.c, newMat.a), Vector.dot(m.c, newMat.b), Vector.dot(m.c, newMat.c))
+        );
     }
 
-    Matrix I0(double s)
+    static Matrix I0(double s)
     {
 
-        Matrix m0 = new Matrix();
-        m0.a.a.x = 0;
-        m0.a.a.y = 0;
-        m0.a.b.x = -1;
-        m0.a.b.y = 0;
-        m0.a.c.x = 0;
-        m0.a.c.y = 0;
-        m0.b.a.x = -1;
-        m0.b.a.y = 0;
-        m0.b.b.x = 0;
-        m0.b.b.y = 0;
-        m0.b.c.x = 0;
-        m0.b.c.y = 0;
-        m0.c.a.x = 0;
-        m0.c.a.y = 0;
-        m0.c.b.x = 0;
-        m0.c.b.y = 0;
-        m0.c.c.x = -1;
-        m0.c.c.y = 0;
-        return (m0);
+        return new Matrix(
+                new Vector(new Complex(0, 0), new Complex(-1, 0), new Complex(0, 0)),
+                new Vector(new Complex(-1, 0), new Complex(0, 0), new Complex(0, 0)),
+                new Vector(new Complex(0, 0), new Complex(0, 0), new Complex(-1, 0))
+        );
     }
 
 
-    Matrix I1(double s)
+    static Matrix I1(double s)
     {
         Complex b = Complex.beta(s);
-        Matrix m1 = new Matrix();
-        m1.a.a.x = -1;
-        m1.a.a.y = 0;
-        m1.a.b.x = 0;
-        m1.a.b.y = 0;
-        m1.a.c.x = 0;
-        m1.a.c.y = 0;
-        m1.b.a.x = 0;
-        m1.b.a.y = 0;
-        m1.b.b.x = 3;
-        m1.b.b.y = 0;
-        m1.b.c.x = -4.0 * b.x;
-        m1.b.c.y = 4.0 * b.y;
-        m1.c.a.x = 0;
-        m1.c.a.y = 0;
-        m1.c.b.x = 4.0 * b.x;
-        m1.c.b.y = 4.0 * b.y;
-        m1.c.c.x = -3;
-        m1.c.c.y = 0;
-        return (m1);
+        return new Matrix(
+                new Vector(new Complex(-1, 0), new Complex(0, 0), new Complex(0, 0)),
+                new Vector(new Complex(0, 0), new Complex(3, 0), new Complex(-4 * b.x, 4 * b.y)),
+                new Vector(new Complex(0, 0), new Complex(4 * b.x, 4 * b.y), new Complex(-3, 0))
+        );
     }
 
 
-    Matrix I2(double s)
+    static Matrix I2(double s)
     {
         Complex b = Complex.beta(s);
-        Matrix m1 = new Matrix();
-        m1.a.a.x = 3;
-        m1.a.a.y = 0;
-        m1.a.b.x = 0;
-        m1.a.b.y = 0;
-        m1.a.c.x = -4.0 * b.x;
-        m1.a.c.y = -4.0 * b.y;
-        m1.b.a.x = 0;
-        m1.b.a.y = 0;
-        m1.b.b.x = -1;
-        m1.b.b.y = 0;
-        m1.b.c.x = 0.0;
-        m1.b.c.y = 0.0;
-        m1.c.a.x = 4.0 * b.x;
-        m1.c.a.y = -4.0 * b.y;
-        m1.c.b.x = 0;
-        m1.c.b.y = 0;
-        m1.c.c.x = -3;
-        m1.c.c.y = 0;
-        return (m1);
+        return new Matrix(
+                new Vector(new Complex(3, 0), new Complex(0, 0), new Complex(-4 * b.x, -4 * b.y)),
+                new Vector(new Complex(0, 0), new Complex(-1, 0), new Complex(0, 0)),
+                new Vector(new Complex(4 * b.x, -4 * b.y), new Complex(0, 0), new Complex(-3, 0))
+        );
     }
 
 
     Matrix J1(double s)
     {
-        Matrix m = new Matrix();
-        m = m.times(m.times(m.I1(s), m.I0(s)), m.I2(s));
-        return (m);
+        return Matrix.times(Matrix.times(Matrix.I1(s), Matrix.I0(s)), Matrix.I2(s));
     }
 
     Matrix J2(double s)
     {
-        Matrix m = new Matrix();
-        m = m.times(m.times(m.I2(s), m.I0(s)), m.I1(s));
-        return (m);
+        return Matrix.times(Matrix.times(Matrix.I2(s), Matrix.I0(s)), Matrix.I1(s));
     }
 
 
