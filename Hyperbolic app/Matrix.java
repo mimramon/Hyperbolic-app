@@ -60,9 +60,9 @@ class Matrix
     }
 
 
-    static Matrix I1(double s)
+    static Matrix I1(double s, double p)
     {
-        Complex b = Complex.beta(s);
+        Complex b = Complex.beta(s, p);
         return new Matrix(
                 new Vector(new Complex(-1, 0), new Complex(0, 0), new Complex(0, 0)),
                 new Vector(new Complex(0, 0), new Complex(3, 0), new Complex(-4 * b.x, 4 * b.y)),
@@ -71,9 +71,9 @@ class Matrix
     }
 
 
-    static Matrix I2(double s)
+    static Matrix I2(double s, double p)
     {
-        Complex b = Complex.beta(s);
+        Complex b = Complex.beta(s, p);
         return new Matrix(
                 new Vector(new Complex(3, 0), new Complex(0, 0), new Complex(-4 * b.x, -4 * b.y)),
                 new Vector(new Complex(0, 0), new Complex(-1, 0), new Complex(0, 0)),
@@ -82,14 +82,14 @@ class Matrix
     }
 
 
-    Matrix J1(double s)
+    Matrix J1(double s, double p)
     {
-        return Matrix.times(Matrix.times(Matrix.I1(s), Matrix.I0(s)), Matrix.I2(s));
+        return Matrix.times(Matrix.times(Matrix.I1(s, p), Matrix.I0(s)), Matrix.I2(s, p));
     }
 
-    Matrix J2(double s)
+    Matrix J2(double s, double p)
     {
-        return Matrix.times(Matrix.times(Matrix.I2(s), Matrix.I0(s)), Matrix.I1(s));
+        return Matrix.times(Matrix.times(Matrix.I2(s, p), Matrix.I0(s)), Matrix.I1(s, p));
     }
 
 
@@ -114,14 +114,14 @@ class Matrix
     }
 
 
-    Matrix FIX(double s)
+    Matrix FIX(double s, double p)
     {
         Matrix m = new Matrix();
         Complex[] z = new Complex[10];
         double[] d = new double[5];
         Vector v = new Vector();
-        m.b = m.b.fix1(s);
-        m.c = m.b.fix2(s);
+        m.b = m.b.fix1(s, p);
+        m.c = m.b.fix2(s, p);
         /********adjusting the lifts**********/
         z[1] = new Complex(0.0, 1.0);
         z[2] = Vector.hermitianDot(m.b, m.c);
@@ -141,13 +141,13 @@ class Matrix
     }
 
 
-    Matrix TOR(double s)
+    Matrix TOR(double s, double p)
     {
         Matrix m = new Matrix();
         Vector v1 = new Vector();
         Vector v2 = new Vector();
-        v1 = v1.torus_vector1(s);
-        v2 = v2.torus_vector2(s);
+        v1 = v1.torus_vector1(s, p);
+        v2 = v2.torus_vector2(s, p);
         m.a = Vector.hermitianCross(v1, v2);
         m.b = v2;
         m.c = v1;

@@ -170,22 +170,22 @@ class RSphere
 
     }
 
-    void setStructure(double s)
+    void setStructure(double s, double p)
     {
         Vector v = new Vector();
         Matrix m = new Matrix();
-        P0 = v.P0(s);
-        P1 = v.P1(s);
-        P2 = v.P2(s);
-        C21 = v.C21(s);
-        C22 = v.C22(s);
-        C11 = v.C11(s);
-        C12 = v.C12(s);
-        M1 = m.FIX(s);
-        M2 = m.TOR(s);
-        I0 = m.I0(s);
-        I1 = m.I1(s);
-        I2 = m.I2(s);
+        P0 = Vector.P0(s, p);
+        P1 = Vector.P1(s, p);
+        P2 = Vector.P2(s, p);
+        C21 = v.C21(s, p);
+        C22 = v.C22(s, p);
+        C11 = v.C11(s, p);
+        C12 = v.C12(s, p);
+        M1 = m.FIX(s, p);
+        M2 = m.TOR(s, p);
+        I0 = Matrix.I0(s);
+        I1 = Matrix.I1(s, p);
+        I2 = Matrix.I2(s, p);
         this.s = s;
 
         Z1 = M1.HYP1(M2.b);

@@ -85,9 +85,9 @@ class Complex
         return new Complex(z.x, -z.y);
     }
 
-    static Complex beta(double s)
+    static Complex beta(double s, double p)
     {
-        return new Complex(s / Math.sqrt(2 + 2 * s * s), 1 / Math.sqrt(2 + 2 * s * s));
+        return new Complex(s / Math.sqrt(p + p * s * s), 1 / Math.sqrt(p + p * s * s));
     }
 
     void print()

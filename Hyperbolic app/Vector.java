@@ -112,33 +112,33 @@ class Vector
         return z[4];
     }
 
-    static Vector P0(double s)
+    static Vector P0(double s, double p)
     {
-        return new Vector(Complex.beta(s), Complex.conjugate(Complex.beta(s)), new Complex(1, 0));
+        return new Vector(Complex.beta(s, p), Complex.conjugate(Complex.beta(s, p)), new Complex(1, 0));
     }
 
 
-    static Vector P1(double s)
+    static Vector P1(double s, double p)
     {
-        return new Vector(Complex.beta(s), Complex.beta(s), new Complex(1, 0));
+        return new Vector(Complex.beta(s, p), Complex.beta(s, p), new Complex(1, 0));
     }
 
 
-    static Vector P2(double s)
+    static Vector P2(double s, double p)
     {
-        return new Vector(Complex.conjugate(Complex.beta(s)), Complex.conjugate(Complex.beta(s)), new Complex(1, 0));
+        return new Vector(Complex.conjugate(Complex.beta(s, p)), Complex.conjugate(Complex.beta(s, p)), new Complex(1, 0));
     }
 
 
-    Vector C21(double s)
+    Vector C21(double s, double p)
     {
         Vector[] v = new Vector[10];
         double[] d = new double[10];
         Complex[] z = new Complex[10];
 
-        v[0] = P0(s);
-        v[1] = P1(s);
-        v[2] = P2(s);
+        v[0] = P0(s, p);
+        v[1] = P1(s, p);
+        v[2] = P2(s, p);
 
         z[0] = hermitianDot(v[0], v[2]);
         z[1] = hermitianDot(v[1], v[2]);
@@ -152,15 +152,15 @@ class Vector
         return (v[2]);
     }
 
-    Vector C22(double s)
+    Vector C22(double s, double p)
     {
         Vector[] v = new Vector[10];
         double[] d = new double[10];
         Complex[] z = new Complex[10];
 
-        v[0] = P0(s);
-        v[1] = P1(s);
-        v[2] = P2(s);
+        v[0] = P0(s, p);
+        v[1] = P1(s, p);
+        v[2] = P2(s, p);
 
         z[0] = hermitianDot(v[0], v[2]);
         z[1] = hermitianDot(v[1], v[2]);
@@ -175,15 +175,15 @@ class Vector
     }
 
 
-    Vector C11(double s)
+    Vector C11(double s, double p)
     {
         Vector[] v = new Vector[10];
         double[] d = new double[10];
         Complex[] z = new Complex[10];
 
-        v[0] = P0(s);
-        v[1] = P1(s);
-        v[2] = P2(s);
+        v[0] = P0(s, p);
+        v[1] = P1(s, p);
+        v[2] = P2(s, p);
 
         z[0] = hermitianDot(v[0], v[1]);
         z[2] = hermitianDot(v[2], v[1]);
@@ -198,15 +198,15 @@ class Vector
     }
 
 
-    Vector C12(double s)
+    Vector C12(double s, double p)
     {
         Vector[] v = new Vector[10];
         double[] d = new double[10];
         Complex[] z = new Complex[10];
 
-        v[0] = P0(s);
-        v[1] = P1(s);
-        v[2] = P2(s);
+        v[0] = P0(s, p);
+        v[1] = P1(s, p);
+        v[2] = P2(s, p);
 
         z[0] = hermitianDot(v[0], v[1]);
         z[2] = hermitianDot(v[2], v[1]);
@@ -221,7 +221,7 @@ class Vector
     }
 
 
-    Vector fix1(double s)
+    Vector fix1(double s, double p)
     {
         Matrix m = new Matrix();
         Matrix mm = new Matrix();
@@ -230,7 +230,7 @@ class Vector
         Vector v2 = new Vector();
         int i = 0;
         int count = 0;
-        m = m.J1(s);
+        m = m.J1(s, p);
         test = 1.0;
         mm = mm.critical_axis();
         v1 = normalize(mm.b);
@@ -243,7 +243,7 @@ class Vector
         return (v1);
     }
 
-    Vector fix2(double s)
+    Vector fix2(double s, double p)
     {
         Matrix m = new Matrix();
         Matrix mm = new Matrix();
@@ -252,7 +252,7 @@ class Vector
         Vector v2 = new Vector();
         int i = 0;
         int count = 0;
-        m = m.J2(s);
+        m = m.J2(s, p);
         test = 1.0;
         mm = mm.critical_axis();
         v1 = normalize(mm.b);
@@ -265,10 +265,10 @@ class Vector
         return (v1);
     }
 
-    Vector torus_vector1(double s)
+    Vector torus_vector1(double s, double p)
     {
         Matrix m = new Matrix();
-        m = m.FIX(s);
+        m = m.FIX(s, p);
         Complex[] z = new Complex[5];
         m.a = normalize(m.a);
         for (int i = 1; i <= 4; ++i) z[i] = new Complex();
@@ -283,10 +283,10 @@ class Vector
         return (m.a);
     }
 
-    Vector torus_vector2(double s)
+    Vector torus_vector2(double s, double p)
     {
         Matrix m = new Matrix();
-        m = m.FIX(s);
+        m = m.FIX(s, p);
         Complex[] z = new Complex[5];
         m.a = normalize(m.a);
         for (int i = 1; i <= 4; ++i) z[i] = new Complex();

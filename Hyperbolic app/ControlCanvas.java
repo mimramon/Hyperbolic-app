@@ -12,7 +12,7 @@ class ControlCanvas extends DoubleBufferedCanvas implements MouseListener, Mouse
     PlotControlCanvas C1, C2, C3;
     RSphere S1, S2;
     Font font;
-    double s, TRUNCATE;
+    double s, p, TRUNCATE;
 
     HorizontalSlider parameter, truncate, density;
     ListenSquare plot, erase, clear, money, plink, tlink, t_reset;
@@ -112,6 +112,7 @@ class ControlCanvas extends DoubleBufferedCanvas implements MouseListener, Mouse
         erase = new ListenSquare(272, 34, 60, 17);
         parameter = new HorizontalSlider(17, 204, 589, 17, 333, color[2]);
         s = Math.sqrt(35.0);
+        p = 1.95;
         density = new HorizontalSlider(332, 0, 273, 17, 382, color[2]);
         truncate = new HorizontalSlider(17, 0, 238, 17, 254, color[2]);
         TRUNCATE = 1;
@@ -161,9 +162,8 @@ class ControlCanvas extends DoubleBufferedCanvas implements MouseListener, Mouse
         z.doubleRender(ss, g, 335, 217);
         double sss = s / Math.sqrt(125.0 / 3.0);
         z.doubleRender(sss, g, 535, 217);
-        Integer I = new Integer(0);
         g.setColor(Color.black);
-        g.drawString(I.toString(DENSITY), 575, 14);
+        g.drawString(Integer.toString(DENSITY), 575, 14);
         z.doubleRender(TRUNCATE, g, 185, 14);
     }
 
@@ -264,7 +264,7 @@ class ControlCanvas extends DoubleBufferedCanvas implements MouseListener, Mouse
             }
         }
 
-        P1.S1.setStructure(s);
+        P1.S1.setStructure(s, p);
         P2.S1 = P1.S1;
         P3.S1 = P1.S1;
         P3.repaint();
