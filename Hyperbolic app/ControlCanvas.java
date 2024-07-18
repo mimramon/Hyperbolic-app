@@ -112,7 +112,7 @@ class ControlCanvas extends DoubleBufferedCanvas implements MouseListener, Mouse
         erase = new ListenSquare(272, 34, 60, 17);
         parameter = new HorizontalSlider(17, 204, 589, 17, 333, color[2]);
         s = Math.sqrt(35.0);
-        p = 1.95;
+        p = 2;
         density = new HorizontalSlider(332, 0, 273, 17, 382, color[2]);
         truncate = new HorizontalSlider(17, 0, 238, 17, 254, color[2]);
         TRUNCATE = 1;

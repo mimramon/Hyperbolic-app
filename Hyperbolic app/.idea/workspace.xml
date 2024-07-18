@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="HyperbolicRunnable" />
+    </artifacts-to-build>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="37f1bc29-bee8-454d-92ef-62ffa5ba8a7f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Run.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/META-INF/MANIFEST.MF" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Complex.java" beforeDir="false" afterPath="$PROJECT_DIR$/Complex.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ControlCanvas.java" beforeDir="false" afterPath="$PROJECT_DIR$/ControlCanvas.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/Matrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/RSphere.java" beforeDir="false" afterPath="$PROJECT_DIR$/RSphere.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/Vector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/Complex.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/Complex.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/ControlCanvas.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/ControlCanvas.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/Matrix.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/Matrix.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/RSphere.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/RSphere.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/Vector.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/Vector.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Hyperbolic app/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Hyperbolic app/Main.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,13 +39,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/Miguel/Desktop/Hyperbolic-app",
+    "project.structure.last.edited": "Artifacts",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "configurable.group.build"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">

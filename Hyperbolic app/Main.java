@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.applet.Applet;
-import java.awt.event.*;
 import java.awt.*;
 
 /*This applet gives an interactive
@@ -10,18 +8,15 @@ import java.awt.*;
 /*overall applet layout*/
 
 
-public class Main extends Applet
+public class Main extends JFrame
 {
     public static void main(String[] args)
     {
-        JFrame frame = new JFrame("applet viewer");
-        frame.setSize(1920, 1080);
-        Applet applet = new Main();
-        frame.add(applet);
-        applet.init();
-        applet.start();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        Main f = new Main();
+        f.setSize(1920, 1080);
+        f.init();
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
     }
 
     PlotCanvas P1, P2, P3;
@@ -33,16 +28,30 @@ public class Main extends Applet
     public void init()
     {
 
+        JPanel test = new JPanel();
+        test.setLayout(new BoxLayout(test, BoxLayout.Y_AXIS));
+        test.setBackground(Color.black);
+        add(test);
+
         setBackground(Color.black);
 
+        //Interactive text box
         D = new DocumentCanvas();
+
+        //Canvases that are drawn to
         P1 = new PlotCanvas(1, D);
         P2 = new PlotCanvas(2, D);
         P3 = new PlotCanvas(3, D);
+
+        //Canvas settings controllers
         C1 = new PlotControlCanvas(P1, D);
         C2 = new PlotControlCanvas(P2, D);
         C3 = new PlotControlCanvas(P3, D);
+
+        //Controls what is drawn and colours
         C = new ControlCanvas(D, P1, P2, P3, C1, C2, C3);
+
+        //Gives all the background information
         T = new TextCanvas(C, C1, C2, C3, D, P1, P2, P3);
 
         C1.setSize(303, 17);
@@ -58,16 +67,25 @@ public class Main extends Applet
         D.setSize(303, 222);
 
 
-        add(C3);
-        add(C1);
-        add(C2);
+        JPanel canvasControls = new JPanel();
+        canvasControls.setSize(1920, 17);
+        canvasControls.setLayout(new GridLayout(1, 3, 20, 0));
+        canvasControls.add(C3);
+        canvasControls.add(C1);
+        canvasControls.add(C2);
 
-        add(P3);
-        add(P1);
-        add(P2);
+        JPanel canvasPanel = new JPanel(new GridLayout(1, 3));
+        canvasPanel.add(P3);
+        canvasPanel.add(P1);
+        canvasPanel.add(P2);
 
-        add(D);
-        add(C);
-        add(T);
+        JPanel controlNText = new JPanel(new GridLayout());
+        controlNText.add(C);
+        controlNText.add(D);
+
+        test.add(canvasControls);
+        test.add(canvasPanel);
+        test.add(controlNText);
+        test.add(T);
     }
 }
