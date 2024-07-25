@@ -13,10 +13,7 @@ public class Main extends JFrame
     public static void main(String[] args)
     {
         Main f = new Main();
-        f.setSize(1920, 1080);
         f.init();
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        f.setVisible(true);
     }
 
     PlotCanvas P1, P2, P3;
@@ -27,7 +24,10 @@ public class Main extends JFrame
 
     public void init()
     {
-
+    	setSize(1920, 1080);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setVisible(true);
+    	
         JPanel test = new JPanel();
         test.setLayout(new BoxLayout(test, BoxLayout.Y_AXIS));
         test.setBackground(Color.black);

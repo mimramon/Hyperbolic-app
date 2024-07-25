@@ -48,6 +48,28 @@ class Matrix
                 new Vector(Vector.dot(m.c, newMat.a), Vector.dot(m.c, newMat.b), Vector.dot(m.c, newMat.c))
         );
     }
+    
+    static Complex determinant(Matrix m)
+    {
+    	Complex firstTerm = 
+    			Complex.multiply(m.a.a, Complex.subtract(Complex.multiply(m.b.b, m.c.c), Complex.multiply(m.b.c, m.c.b)));
+    	Complex secondTerm = 
+    			Complex.multiply(m.b.a, Complex.subtract(Complex.multiply(m.a.b, m.c.c), Complex.multiply(m.a.c, m.c.b)));
+    	Complex thirdTerm =
+    			Complex.multiply(m.c.a, Complex.subtract(Complex.multiply(m.a.b, m.b.c), Complex.multiply(m.b.b, m.a.c)));
+    	return Complex.add(Complex.subtract(firstTerm, secondTerm), thirdTerm);
+    }
+    
+    static Matrix scale(Complex z, Matrix m )
+    {
+    	return new Matrix(Vector.scale(z, m.a), Vector.scale(z, m.b), Vector.scale(z, m.c));
+    }
+    
+    static Matrix normaliseDeterminant(Matrix m)
+    {
+    	Complex det = Matrix.determinant(m);
+    	return Matrix.scale(Complex.divide(new Complex(1, 0), Complex.multiply(det, Complex.multiply(det, det))), m);
+    }
 
     static Matrix I0(double s)
     {
