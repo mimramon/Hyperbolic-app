@@ -1,5 +1,10 @@
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /*This applet gives an interactive
   proof of the Goldman-Parker Conjecture.
@@ -10,17 +15,32 @@ import java.awt.*;
 
 public class Main extends JFrame
 {
-    public static void main(String[] args)
+	PlotCanvas P1, P2, P3;
+    PlotControlCanvas C1, C2, C3;
+    static ControlCanvas C;
+    TextCanvas T;
+    DocumentCanvas D;
+	
+	public static void main(String[] args)
     {
         Main f = new Main();
         f.init();
+        log(f.C);
+        
+        int testVal = JOptionPane.showConfirmDialog(null, "Do you want to see testing mode?", "Test", JOptionPane.YES_NO_OPTION);
+        if(testVal == JOptionPane.YES_OPTION)
+        {
+        	JFrame test = new JFrame();
+            test.setSize(800, 450);
+            test.setLayout(new GridLayout());
+            test.setVisible(true);
+            test.add(sParamSetter());
+            test.add(pParamSetter());
+            test.add(plotButton());
+            test.add(clearButton());
+            test.pack();
+        }
     }
-
-    PlotCanvas P1, P2, P3;
-    PlotControlCanvas C1, C2, C3;
-    ControlCanvas C;
-    TextCanvas T;
-    DocumentCanvas D;
 
     public void init()
     {
@@ -66,26 +86,145 @@ public class Main extends JFrame
         C.setSize(607, 222);
         D.setSize(303, 222);
 
-
-        JPanel canvasControls = new JPanel();
-        canvasControls.setSize(1920, 17);
-        canvasControls.setLayout(new GridLayout(1, 3, 20, 0));
-        canvasControls.add(C3);
-        canvasControls.add(C1);
-        canvasControls.add(C2);
-
-        JPanel canvasPanel = new JPanel(new GridLayout(1, 3));
-        canvasPanel.add(P3);
-        canvasPanel.add(P1);
-        canvasPanel.add(P2);
+       JPanel canvasPanel = new JPanel(new GridLayout(1, 3));
+        
+        canvasPanel.add(plotPanel(P3, C3));
+        canvasPanel.add(plotPanel(P1, C1));
+        canvasPanel.add(plotPanel(P2, C2));
 
         JPanel controlNText = new JPanel(new GridLayout());
         controlNText.add(C);
         controlNText.add(D);
 
-        test.add(canvasControls);
         test.add(canvasPanel);
         test.add(controlNText);
         test.add(T);
+    }
+    
+    public static void log(ControlCanvas C)
+    {
+    	System.out.println("I0 Matrix det");
+    	Complex.print(Matrix.determinant(Matrix.I0(C.s)));
+    	System.out.println("\nI1 Matrix det");
+    	Complex.print(Matrix.determinant(Matrix.I1(C.s, C.p)));
+    	System.out.println("\nI2 Matrix det");
+    	Complex.print(Matrix.determinant(Matrix.I2(C.s, C.p)));
+    	
+        System.out.println("\n");	
+    	Matrix.print(Matrix.I0(C.s));
+    	
+    	System.out.println("I0 Matrix det normalised");
+    	Complex.print(Matrix.determinant(Matrix.normaliseDeterminant(Matrix.I0(C.s))));
+    	System.out.println("\nI1 Matrix det normalised");
+    	Complex.print(Matrix.determinant(Matrix.normaliseDeterminant(Matrix.I1(C.s, C.p))));
+    	System.out.println("\nI2 Matrix det normalised");
+    	Complex.print(Matrix.determinant(Matrix.normaliseDeterminant(Matrix.I2(C.s, C.p))));
+    	
+    	System.out.println();
+    	/*
+    	Complex.print(Matrix.determinant(new Matrix(
+    			new Vector(new Complex(1, 0), new Complex(2, 0), new Complex(3, 0)), 
+    			new Vector(new Complex(4, 0), new Complex(5, 0), new Complex(7, 0)), 
+    			new Vector(new Complex(8, 0), new Complex(10, 0), new Complex(13, 0)))));
+    	*/
+    }
+    
+    static JPanel sParamSetter()
+    {
+    	JSpinner spinner;
+    	
+    	spinner = new JSpinner(new SpinnerNumberModel(Math.sqrt(35), 0, Math.sqrt(125/3), 0.0000000000001));
+        spinner.setEditor(new JSpinner.NumberEditor(spinner, "0.0000000000000"));
+        spinner.addChangeListener(new ChangeListener() 
+        {
+    			
+        	@Override
+    		public void stateChanged(ChangeEvent e) 
+    		{
+        		C.s = (double) spinner.getValue();
+        		C.doPlot();
+    			System.out.println(spinner.getValue());
+    		}
+    	});
+        spinner.setSize(200, 400);
+        spinner.setToolTipText("<html><p width=\"500\">" +"This is the parameter selector. "
+        		+ "The objects in the applet are parametrized by a number in the interval [0,sqrt(125/3)). "
+        		+ "Click the buttons or type to select a value. "
+        		+ "The picture is automatically replotted at the new parameter value. "
+        		+ "The parameter value s is displayed in black. "
+        		+ "For computational reasons any s > s0 = sqrt(125/3) - 0.00001 is reset  to s0."+"</p></html>");
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.BLUE);
+        panel.add(spinner);
+        return panel;	
+    }
+    
+    static JPanel pParamSetter()
+    {
+    	JSpinner spinner;
+    	
+    	spinner = new JSpinner(new SpinnerNumberModel(2, 1, 1000, 0.0000000000001));
+        spinner.setEditor(new JSpinner.NumberEditor(spinner, "0.0000000000000"));
+        spinner.addChangeListener(new ChangeListener() 
+        {
+    			
+        	@Override
+    		public void stateChanged(ChangeEvent e) 
+    		{
+    			System.out.println(spinner.getValue());
+    		}
+    	});
+        spinner.setSize(200, 400);
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.RED);
+        panel.add(spinner);
+        return panel;	
+    }
+    
+    static JPanel plotButton()
+    {
+    	JPanel panel = new JPanel();
+    	JButton button = new JButton("Plot");
+    	button.addActionListener(new ActionListener() 
+    	{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				C.doPlot();
+			}
+		});
+    	button.setToolTipText("This is the plot button. When you push it, the selected objects are plotted in 3 coordinate systems: ELEV, PLAN, HYP.");
+    	panel.add(button);
+    	return panel;
+    }
+    
+    static JPanel clearButton()
+    {
+    	JPanel panel = new JPanel();
+    	JButton button = new JButton("Clear");
+    	button.addActionListener(new ActionListener() 
+    	{
+			@Override
+			public void actionPerformed(ActionEvent e) 
+			{
+				C.S1.clear();
+	            C.S2.clear();
+	            C.doPlot();
+			}
+		});
+    	button.setToolTipText("This is the clear button."
+        + "When you push this button the "
+        + "object selectors are cleared.");
+    	panel.add(button);
+    	return panel;
+    }
+    
+    static JPanel plotPanel(PlotCanvas p, PlotControlCanvas c)
+    {
+    	JPanel panel = new JPanel();
+    	panel.add(c, BorderLayout.NORTH);
+    	panel.add(p, BorderLayout.CENTER);
+    	
+    	return panel;
     }
 }

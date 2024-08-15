@@ -18,7 +18,6 @@ class Matrix
         c = _c;
     }
 
-    //investigate further
     Vector act(Vector v)
     {
         Vector w = new Vector();
@@ -28,7 +27,6 @@ class Matrix
         return (w);
     }
 
-    //investigate further
     static Matrix transpose(Matrix m)
     {
         return new Matrix(
@@ -37,7 +35,6 @@ class Matrix
                 new Vector(m.a.c, m.b.c, m.c.c)
         );
     }
-
 
     static Matrix times(Matrix m, Matrix n)
     {
@@ -68,7 +65,29 @@ class Matrix
     static Matrix normaliseDeterminant(Matrix m)
     {
     	Complex det = Matrix.determinant(m);
-    	return Matrix.scale(Complex.divide(new Complex(1, 0), Complex.multiply(det, Complex.multiply(det, det))), m);
+    	return Matrix.scale(Complex.divide(new Complex(1, 0), Complex.cubeRoot(det)), m);
+    }
+    
+    static void print(Matrix m)
+    {
+    	Complex.print(m.a.a); 
+    	System.out.print("   ");
+    	Complex.print(m.b.a); 
+    	System.out.print("   ");
+    	Complex.print(m.c.a); 
+    	System.out.println("   \n");
+    	Complex.print(m.a.b); 
+    	System.out.print("   ");
+    	Complex.print(m.b.b); 
+    	System.out.print("   ");
+    	Complex.print(m.c.b); 
+    	System.out.println("   \n");
+    	Complex.print(m.a.c); 
+    	System.out.print("   ");
+    	Complex.print(m.b.c); 
+    	System.out.print("   ");
+    	Complex.print(m.c.c); 
+    	System.out.println("   \n");
     }
 
     static Matrix I0(double s)
@@ -85,22 +104,24 @@ class Matrix
     static Matrix I1(double s, double p)
     {
         Complex b = Complex.beta(s, p);
-        return new Matrix(
+        Matrix m = new Matrix(
                 new Vector(new Complex(-1, 0), new Complex(0, 0), new Complex(0, 0)),
                 new Vector(new Complex(0, 0), new Complex(3, 0), new Complex(-4 * b.x, 4 * b.y)),
                 new Vector(new Complex(0, 0), new Complex(4 * b.x, 4 * b.y), new Complex(-3, 0))
         );
+        return Matrix.normaliseDeterminant(m);
     }
 
 
     static Matrix I2(double s, double p)
     {
         Complex b = Complex.beta(s, p);
-        return new Matrix(
+        Matrix m = new Matrix(
                 new Vector(new Complex(3, 0), new Complex(0, 0), new Complex(-4 * b.x, -4 * b.y)),
                 new Vector(new Complex(0, 0), new Complex(-1, 0), new Complex(0, 0)),
                 new Vector(new Complex(4 * b.x, -4 * b.y), new Complex(0, 0), new Complex(-3, 0))
         );
+        return Matrix.normaliseDeterminant(m);
     }
 
 

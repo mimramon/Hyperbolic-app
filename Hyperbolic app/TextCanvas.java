@@ -207,12 +207,11 @@ class TextCanvas extends DoubleBufferedCanvas implements MouseListener
 
         if (GALLERY == 1)
         {
-            Integer I = new Integer(0);
             for (int i = 1; i <= 10; ++i)
             {
                 G[i].render(g, new Color(150, 0, 255));
                 g.setColor(Color.white);
-                g.drawString(I.toString(i), G[i].x + 3, G[i].y + 13);
+                g.drawString(Integer.toString(i), G[i].x + 3, G[i].y + 13);
             }
         }
 

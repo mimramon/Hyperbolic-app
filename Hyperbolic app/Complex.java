@@ -48,6 +48,13 @@ class Complex
         double theta = Complex.arg(z);
         return new Complex(r * Math.cos(theta / 2), r * Math.sin(theta / 2));
     }
+    
+    static Complex cubeRoot(Complex z)
+    {
+    	double r = Math.sqrt(Complex.norm(z));
+    	double theta = Complex.arg(z);
+        return new Complex(r * Math.cos(theta / 3), r * Math.sin(theta / 3));
+    }
 
     static Complex unit(Complex z)
     {
@@ -90,9 +97,9 @@ class Complex
         return new Complex(s / Math.sqrt(p + p * s * s), 1 / Math.sqrt(p + p * s * s));
     }
 
-    void print()
+    static void print(Complex z)
     {
-        System.out.println(x + "    " + y + " I");
+        System.out.print("Value: " + z.x + " + " + z.y + "i");
     }
 
     void doubleRender(double d, Graphics g, int x, int y)

@@ -18,9 +18,9 @@ class Vector
 
     void print()
     {
-        a.print();
-        b.print();
-        c.print();
+        Complex.print(a);
+        Complex.print(b);
+        Complex.print(c);
     }
 
 
