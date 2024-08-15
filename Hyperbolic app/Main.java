@@ -38,6 +38,7 @@ public class Main extends JFrame
             test.add(pParamSetter());
             test.add(plotButton());
             test.add(clearButton());
+            test.validate();
             test.pack();
         }
     }
@@ -131,31 +132,55 @@ public class Main extends JFrame
     
     static JPanel sParamSetter()
     {
-    	JSpinner spinner;
+    	JSpinner valueSpinner;
+    	JSpinner deltaSpinner;
     	
-    	spinner = new JSpinner(new SpinnerNumberModel(Math.sqrt(35), 0, Math.sqrt(125/3), 0.0000000000001));
-        spinner.setEditor(new JSpinner.NumberEditor(spinner, "0.0000000000000"));
-        spinner.addChangeListener(new ChangeListener() 
+    	SpinnerNumberModel numberModel = new SpinnerNumberModel(Math.sqrt(35), 0, Math.sqrt(125/3), 0.0000000000001);
+    	valueSpinner = new JSpinner(numberModel);
+        valueSpinner.setEditor(new JSpinner.NumberEditor(valueSpinner, "0.0000000000000"));
+        valueSpinner.addChangeListener(new ChangeListener() 
         {
     			
         	@Override
     		public void stateChanged(ChangeEvent e) 
     		{
-        		C.s = (double) spinner.getValue();
+        		C.s = (double) valueSpinner.getValue();
         		C.doPlot();
-    			System.out.println(spinner.getValue());
+    			System.out.println(valueSpinner.getValue());
     		}
     	});
-        spinner.setSize(200, 400);
-        spinner.setToolTipText("<html><p width=\"500\">" +"This is the parameter selector. "
+        valueSpinner.setSize(200, 400);
+        valueSpinner.setToolTipText("<html><p width=\"500\">" +"This is the s parameter selector. "
         		+ "The objects in the applet are parametrized by a number in the interval [0,sqrt(125/3)). "
         		+ "Click the buttons or type to select a value. "
         		+ "The picture is automatically replotted at the new parameter value. "
         		+ "The parameter value s is displayed in black. "
         		+ "For computational reasons any s > s0 = sqrt(125/3) - 0.00001 is reset  to s0."+"</p></html>");
+       
+        
+        
+        deltaSpinner = new JSpinner(new SpinnerNumberModel(13, 0, 13, 1));
+    	deltaSpinner.setEditor(new JSpinner.NumberEditor(deltaSpinner, "00"));
+    	
+    	
+    	deltaSpinner.addChangeListener(new ChangeListener() 
+    	{
+			
+			@Override
+			public void stateChanged(ChangeEvent e) 
+			{
+				double exponent = Math.pow(10,(int)deltaSpinner.getValue() - (int)deltaSpinner.getPreviousValue());
+				numberModel.setStepSize(numberModel.getStepSize().doubleValue()*exponent);
+			}
+		});
+		
+    	deltaSpinner.setSize(200, 400);
+    	
         JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.setBackground(Color.BLUE);
-        panel.add(spinner);
+        panel.add(valueSpinner);
+        panel.add(deltaSpinner);
         return panel;	
     }
     
@@ -171,13 +196,22 @@ public class Main extends JFrame
         	@Override
     		public void stateChanged(ChangeEvent e) 
     		{
+        		C.p = (double) spinner.getValue();
+        		C.doPlot();
     			System.out.println(spinner.getValue());
     		}
     	});
         spinner.setSize(200, 400);
+        spinner.setToolTipText("<html><p width=\"500\">" +"This is the p parameter selector. "
+        		+ "The objects in the applet are parametrized by a number in the interval [1,inf). "
+        		+ "Click the buttons or type to select a value. "
+        		+ "The picture is automatically replotted at the new parameter value. "
+        		+ "The parameter value p is displayed in black. "
+        		+ "WARNING: Changing this parameter may cause the application to crash, it may need to be terminated."+"</p></html>");
         JPanel panel = new JPanel();
         panel.setBackground(Color.RED);
         panel.add(spinner);
+        panel.validate();
         return panel;	
     }
     
