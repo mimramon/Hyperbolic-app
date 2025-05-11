@@ -5,11 +5,3 @@ Further Links:
 https://www.math.brown.edu/reschwar/Java/App45/test1.html 
 
 https://www.math.brown.edu/reschwar/Papers/gp2.pdf (Paper)
-
-IMPORTANT:
-Changing the P parameter causes a change in the plots below p = 1.9999860885179 for default detail
-
-At maximum detail, changes appear below p = 1.9999995275783
-
-TODO:
-Improve Determinant normalisation calculation for higher accuracy
