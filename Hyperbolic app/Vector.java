@@ -97,7 +97,7 @@ class Vector
     }
 
 
-    //needs further investigation
+    //seems like the standard projection?
     Complex projection(Vector v)
     {
         Vector w = new Vector();

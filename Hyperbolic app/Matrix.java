@@ -18,6 +18,7 @@ class Matrix
         c = _c;
     }
 
+    //pre-multiplies Vector with current matrix object
     Vector act(Vector v)
     {
         Vector w = new Vector();
@@ -89,8 +90,9 @@ class Matrix
     	Complex.print(m.c.c); 
     	System.out.println("   \n");
     }
-
-    static Matrix I0(double s)
+    
+    //this is the matrix that fixes the point (beta, conj(beta))
+    static Matrix I0(double s, double p)
     {
 
         return new Matrix(
@@ -100,26 +102,26 @@ class Matrix
         );
     }
 
-
+    //this is the matrix that fixes (beta, beta)
     static Matrix I1(double s, double p)
     {
         Complex b = Complex.beta(s, p);
         Matrix m = new Matrix(
                 new Vector(new Complex(-1, 0), new Complex(0, 0), new Complex(0, 0)),
-                new Vector(new Complex(0, 0), new Complex(3, 0), new Complex(-4 * b.x, 4 * b.y)),
-                new Vector(new Complex(0, 0), new Complex(4 * b.x, 4 * b.y), new Complex(-3, 0))
+                new Vector(new Complex(0, 0), new Complex((p+1)/(p-1), 0), Complex.multiply(new Complex((-2*p)/(p-1), 0), Complex.conjugate(Complex.beta(s, p)))),
+                new Vector(new Complex(0, 0), Complex.multiply(new Complex((2*p)/(p-1), 0), Complex.beta(s, p)), new Complex((-p-1)/(p-1), 0))
         );
         return Matrix.normaliseDeterminant(m);
     }
 
-
+    //this is the matrix that fixes (conj(beta), conj(beta))
     static Matrix I2(double s, double p)
     {
         Complex b = Complex.beta(s, p);
         Matrix m = new Matrix(
-                new Vector(new Complex(3, 0), new Complex(0, 0), new Complex(-4 * b.x, -4 * b.y)),
+                new Vector(new Complex((p+1)/(p-1), 0), new Complex(0, 0), Complex.multiply(new Complex((-2*p)/(p-1), 0), Complex.beta(s, p))),
                 new Vector(new Complex(0, 0), new Complex(-1, 0), new Complex(0, 0)),
-                new Vector(new Complex(4 * b.x, -4 * b.y), new Complex(0, 0), new Complex(-3, 0))
+                new Vector(Complex.multiply(new Complex((2*p)/(p-1), 0), Complex.conjugate(Complex.beta(s, p))), new Complex(0, 0), new Complex((-p-1)/(p-1), 0))
         );
         return Matrix.normaliseDeterminant(m);
     }
@@ -127,12 +129,12 @@ class Matrix
 
     Matrix J1(double s, double p)
     {
-        return Matrix.times(Matrix.times(Matrix.I1(s, p), Matrix.I0(s)), Matrix.I2(s, p));
+        return Matrix.times(Matrix.times(Matrix.I1(s, p), Matrix.I0(s, p)), Matrix.I2(s, p));
     }
 
     Matrix J2(double s, double p)
     {
-        return Matrix.times(Matrix.times(Matrix.I2(s, p), Matrix.I0(s)), Matrix.I1(s, p));
+        return Matrix.times(Matrix.times(Matrix.I2(s, p), Matrix.I0(s, p)), Matrix.I1(s, p));
     }
 
 
@@ -258,6 +260,7 @@ class Matrix
         return z;
     }
 
+    //not sure what the complex u is here for
     Complex ELEV1(Vector v, Complex u)
     {
         Vector w = new Vector();
@@ -274,7 +277,7 @@ class Matrix
         z2 = Complex.divide(w.b, w.c);
         z3.x = Complex.arg(z1) / (Math.PI * 2);
         z3.y = z2.y;
-        return (z3);
+        return (z3 );
     }
 
 
@@ -431,6 +434,7 @@ class Matrix
 
     /*this routine supposes that the vectors lie in an R-circle*/
 
+    //check that the vectors really do lie in the R-circle
     Vector R_param(double t)
     {
         Complex[] z = new Complex[5];

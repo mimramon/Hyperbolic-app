@@ -13,6 +13,7 @@ class RSphere
     Complex Z1, Z2, Z3, Z4, Z5, Z6, Z7, Z8;
     double s;
 
+    //sets GUI elements
     RSphere(int x, int y, int w, int h)
     {
         this.x = x;
@@ -183,7 +184,7 @@ class RSphere
         C12 = v.C12(s, p);
         M1 = m.FIX(s, p);
         M2 = m.TOR(s, p);
-        I0 = Matrix.I0(s);
+        I0 = Matrix.I0(s, p); 
         I1 = Matrix.I1(s, p);
         I2 = Matrix.I2(s, p);
         this.s = s;

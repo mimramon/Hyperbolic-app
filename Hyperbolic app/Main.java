@@ -105,17 +105,17 @@ public class Main extends JFrame
     public static void log(ControlCanvas C)
     {
     	System.out.println("I0 Matrix det");
-    	Complex.print(Matrix.determinant(Matrix.I0(C.s)));
+    	Complex.print(Matrix.determinant(Matrix.I0(C.s, C.p)));
     	System.out.println("\nI1 Matrix det");
     	Complex.print(Matrix.determinant(Matrix.I1(C.s, C.p)));
     	System.out.println("\nI2 Matrix det");
     	Complex.print(Matrix.determinant(Matrix.I2(C.s, C.p)));
     	
         System.out.println("\n");	
-    	Matrix.print(Matrix.I0(C.s));
+    	Matrix.print(Matrix.I0(C.s, C.p));
     	
     	System.out.println("I0 Matrix det normalised");
-    	Complex.print(Matrix.determinant(Matrix.normaliseDeterminant(Matrix.I0(C.s))));
+    	Complex.print(Matrix.determinant(Matrix.normaliseDeterminant(Matrix.I0(C.s, C.p))));
     	System.out.println("\nI1 Matrix det normalised");
     	Complex.print(Matrix.determinant(Matrix.normaliseDeterminant(Matrix.I1(C.s, C.p))));
     	System.out.println("\nI2 Matrix det normalised");
@@ -135,7 +135,7 @@ public class Main extends JFrame
     	JSpinner valueSpinner;
     	JSpinner deltaSpinner;
     	
-    	SpinnerNumberModel numberModel = new SpinnerNumberModel(Math.sqrt(35), 0, Math.sqrt(125/3), 0.0000000000001);
+    	SpinnerNumberModel numberModel = new SpinnerNumberModel(Math.sqrt(125/3), 0, 10000000, 0.0000000000001);
     	valueSpinner = new JSpinner(numberModel);
         valueSpinner.setEditor(new JSpinner.NumberEditor(valueSpinner, "0.0000000000000"));
         valueSpinner.addChangeListener(new ChangeListener() 
@@ -145,7 +145,6 @@ public class Main extends JFrame
     		public void stateChanged(ChangeEvent e) 
     		{
         		C.s = (double) valueSpinner.getValue();
-        		C.doPlot();
     			System.out.println(valueSpinner.getValue());
     		}
     	});
@@ -188,7 +187,7 @@ public class Main extends JFrame
     {
     	JSpinner spinner;
     	
-    	spinner = new JSpinner(new SpinnerNumberModel(2, 1, 1000, 0.0000000000001));
+    	spinner = new JSpinner(new SpinnerNumberModel(2, 0, 2, 0.0000000000001));
         spinner.setEditor(new JSpinner.NumberEditor(spinner, "0.0000000000000"));
         spinner.addChangeListener(new ChangeListener() 
         {
@@ -197,7 +196,6 @@ public class Main extends JFrame
     		public void stateChanged(ChangeEvent e) 
     		{
         		C.p = (double) spinner.getValue();
-        		C.doPlot();
     			System.out.println(spinner.getValue());
     		}
     	});

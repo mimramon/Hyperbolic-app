@@ -17,7 +17,7 @@ class ControlCanvas extends DoubleBufferedCanvas implements MouseListener, Mouse
 
     HorizontalSlider parameter, truncate, density;
     ListenSquare plot, erase, clear, money, plink, tlink, t_reset;
-    ListenSquare[] COL = new ListenSquare[40];
+    ListenSquare[] COL = new ListenSquare[40]; //object colour selector
     ListenSquare[] mode = new ListenSquare[6];
     int ERASE, DENSITY, P_LINK, T_LINK, MODE;
     Color[] color = new Color[4];
@@ -240,6 +240,7 @@ class ControlCanvas extends DoubleBufferedCanvas implements MouseListener, Mouse
         P2.DENSITY = DENSITY;
         P3.DENSITY = DENSITY;
 
+        //stuff with buttons
         for (int i = 7; i <= 18; ++i)
         {
             P1.S1.S[i] = S1.S[i];
@@ -250,6 +251,8 @@ class ControlCanvas extends DoubleBufferedCanvas implements MouseListener, Mouse
             P3.S2.S[i] = S2.S[i];
 
         }
+        
+        //more button stuff
         for (int i = 1; i <= 6; ++i)
         {
             for (int j = 1; j <= 40; ++j)
